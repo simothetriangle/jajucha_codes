@@ -8,6 +8,8 @@ def main_loop():
     evt_1 = 0
     evt_2 = 0
 
+    #chk 2
+    
     #get instance
     qrgb,qdepth = jajucha.camera_init()
 
