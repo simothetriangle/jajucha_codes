@@ -27,9 +27,7 @@ def main_loop():
             evt_1 = 1
         else:
             evt_1 = 0
-
-
-        #change chk
+            
 
         #evt_2 - line tracing
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
