@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <body class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+      <h2>Rule based : 자율주행</h2>
+
+      <img
+        src="./resources/rule_based/images/img1.svg"
+        alt="Example Image"
+        width="200"
+        height="300"
+      />
+
+      <br />
+
+      <p>
+        자율주행이란 운전자가 직접 운전하지 않고, 차량 스스로 도로에서 달리게
+        하는 일을 의미합니다. (국립국어원)
+      </p>
+      <br />
+
+      <p>
+        자율주행을 구현하는데에는 많은 방법들이 있지만 가장 기본적인 방법인
+        규칙기반 자율주행부터 알아보고자 합니다. 규칙기반 자율주행에서 특정한
+        규칙이나 조건을 정하는 방법은 다양합니다. 여기에서는 격자(Grid)를 만들고
+        규칙을 만들어 자율주행하는 방법에 대하여 살펴볼 것입니다.
+      </p>
+
+      <br />
+      <hr />
+
+      <h2>이미지</h2>
+      <img
+        src="./resources/rule_based/images/img2.svg"
+        alt="Example Image"
+        width="500"
+        height="300"
+      />
+
+      <br />
+      <p>
+        자율주행자동차의 카메라 센서에 의해 얻어지는 이미지의 크기는 원래는
+        <span class="highlight">1920픽셀 × 1080픽셀</span>입니다. 그렇지만 이
+        이미지를 그대로 분석하려면 이미지 데이터가 너무 커서 알고리즘은 느려지게
+        되고, 빠른 주행 판단을 하기가 어려워 자율주행자동차는 주행을 원활히 하지
+        못하게 됩니다. 따라서 이미지를 축소하게 되는데, 여기에서는 편의상
+        <span class="highlight">640픽셀 × 480픽셀</span>크기로 조정합니다.
+      </p>
+
+      <br />
+      <hr />
+
+      <h2>이미지에 격자 생성</h2>
+
+      <p>
+        이미지에 격자를 얼마만큼 촘촘하게 만드냐에 따라 더 많은 정보가 들어오고,
+        차선을 더 정확하게 인지할 가능성이 커집니다. 하지만, 그에 따라 더 많은
+        데이터를 다루어야 하므로 알고리즘이 느려질 가능성이 큽니다. 따라서
+        적절한 격자를 만드는 것도 중요합니다. 적절한 격자를 만들기 위해서는
+        다음의 2가지 조건을 생각해야 합니다.
+      </p>
+
+      <ul>
+        <li>이미지의 어느 부분에 격자를 생성할 것인가?</li>
+        <li>격자는 몇 개를 만들 것인가?</li>
+      </ul>
+
+      <h2>이미지 처리에서의 관심 영역(ROI)</h2>
+      <p>
+        차선을 감지하거나 분석하는 알고리즘을 개발할 때, 전체 이미지를 대상으로
+        하는 것보다 차선이 예상되는 영역에만 집중하는 것이 효율적입니다. 이를
+        위해 이미지에서 차선이 나타날 것으로 예상되는 영역을 관심 영역(ROI:
+        Region of Interest)으로 지정합니다.
+      </p>
+      <p>관심 영역을 지정함으로써 다음과 같은 이점을 얻을 수 있습니다:</p>
+      <ul>
+        <li>
+          <strong>리소스 절약:</strong> 전체 이미지를 처리하는 것보다 관심
+          영역만을 대상으로 하면 연산량이 줄어들어 시간과 처리 비용을 절약할 수
+          있습니다.
+        </li>
+        <li>
+          <strong>정확도 향상:</strong> 관심 영역에 집중함으로써 분석 알고리즘이
+          더 빠르고 정확하게 차선을 감지할 수 있습니다.
+        </li>
+        <li>
+          <strong>불필요한 영역 제거:</strong> 관심 영역을 설정함으로써 불필요한
+          배경이나 잡음을 제거하여 알고리즘의 성능을 향상시킵니다.
+        </li>
+      </ul>
+      <br />
+
+      <hr />
+
+      <br />
+
+      <h2>1 : 이미지의 격자를 생성할 부분</h2>
+
+      <img
+        src="./resources/rule_based/images/img3.svg"
+        alt="Example Image"
+        width="500"
+        height="300"
+      />
+
+      <br />
+
+      <li>
+        640×480 픽셀 크기의 이미지가 들어왔을 때, 관심영역(ROI)를 잡는 방법은
+        크게 3가지가 있을 수 있습니다.
+      </li>
+
+      <br />
+
+      <div class="example">
+        <p>㉠: 이미지의 절반을 고려한 640×240 픽셀 크기의 녹색 사각형</p>
+        <p>
+          이 설정은 이미지의 절반을 포함하며 차선이 없는 영역까지 포함하게 되어
+          불필요한 이미지 처리로 리소스 낭비가 발생합니다. 따라서, 바람직하지
+          않은 설정입니다.
+        </p>
+      </div>
+
+      <br />
+
+      <div class="example">
+        <p>㉡: 지면의 끝을 포함한 640×200 픽셀 크기의 파랑 사각형</p>
+        <p>
+          이 설정은 지면의 끝까지 포함하여 적절하게 ROI를 설정했습니다.
+          자율주행에 무리가 없는 설정이지만, 멀리 있는 지면 정보가 현재 주행에
+          불필요할 수 있습니다.
+        </p>
+      </div>
+
+      <br />
+
+      <div class="example">
+        <p>
+          ㉢: 적절한 크기의 640×172 픽셀 크기의 빨강 사각형 (가장 바람직한 설정)
+        </p>
+        <p>
+          이 설정은 현재 주행을 위해 필요한 차선 정보까지만 포함하며, 멀리 있는
+          차선 정보는 제외합니다. 따라서, 컴퓨터의 리소스를 가장 효율적으로
+          사용하는 설정입니다.
+        </p>
+      </div>
+
+      <br />
+
+      <div class="highlight">
+        <h2>최적의 ROI 설정 (㉢)</h2>
+        <p>
+          가장 바람직한 관심영역 설정은 ㉢과 같이 640×172 픽셀 크기의 빨강
+          사각형입니다. 이는 현재 주행을 결정하는 데 필요한 차선까지만 포함하며,
+          불필요한 부분은 삭제하여 리소스를 효율적으로 사용합니다.
+        </p>
+
+        <p>이점:</p>
+        <ul>
+          <li>
+            불필요한 영역을 배제하여 이미지 처리에 필요한 리소스를 줄입니다.
+          </li>
+          <li>
+            현재 주행에 필요한 정보만 포함하여 알고리즘의 효율성을 높입니다.
+          </li>
+        </ul>
+
+        <p>
+          결론적으로, 자율주행자동차의 주행 알고리즘을 진행할 때, 가능한 한 작고
+          필요한 영역만을 ROI로 지정하는 것이 유리합니다. 이에 따라,
+          아랫부분에서 172픽셀까지를 ROI로 설정하는 것이 가장 적절합니다.
+        </p>
+      </div>
+
+      <br />
+
+      <h2>2 :   격자 생성 기준</h2>
+      <img
+      src="./resources/rule_based/images/img4.svg"
+      alt="Example Image"
+      width="500"
+      height="300"
+    />
+
+    <br>
+    <p>이제 위의 그림과 같이 ROI 이미지를 결정했다고 합시다. 이 이미지에 격자를 그려야 합니다. 이때 선을 몇 개 긋는 것이 바람직할까요?</p>
+    <br>
+
+    <hr>
+    <br>
+    
+    <img
+    src="./resources/rule_based/images/img5.svg"
+    alt="Example Image"
+    width="500"
+    height="300"
+  />
+
+  <br>
+
+  <p>가장 간단한 것은 [그림 4]와 같이 가로줄 1개, 세로줄 1개를 그리는 것입니다. 이럴 경우 얻어지는 정보는 어떤 것들이 있을까요?
+    가로줄 1개에 왼쪽 차선과의 교점, 오른쪽 차선과의 교점이 각각 생기므로 L[0], R[0] 값을 얻을 수 있고, 세로줄 1개에 차선과의 교점은 1개가 생기므로 V[0] 값을 얻을 수 있습니다. 즉 3개의 데이터를 얻을 수 있습니다. 그러나 이것은 차선과 만나는 격자 정보가 너무 부족하여 올바른 자율주행 판단을 하기 어렵습니다.</p>
+
+  <br>
+  <hr>
+  <br>
+
+  <img
+  src="./resources/rule_based/images/img6.svg"
+  alt="Example Image"
+  width="500"
+  height="300"
+/>
+
+<br>
+
+<p>추가로 격자를 위한 줄을 그릴 때는 편의상 중간 위치에 선을 그립니다. 따라서 다음과 같이 가로줄을 추가로 2개 더 그려 총 3개의 가로줄, 세로줄도 마찬가지로 추가로 2개 더 그려 총 3개의 세로줄을 그릴 수 있습니다. 이럴 경우 얻어지는 정보는 어떻게 될까요?
+  그림과 같이 가로줄의 경우 왼쪽 차선, 오른쪽 차선과의 교점이 있을 수 있으므로 L[0], R[0], L[1], R[1], L[2], R[2] 총 6개(노랑색 점들)의 자료를 얻을 수 있습니다. 세로줄의 경우 V[0], V[1], V[2] 총 3개(분홍색 점들)의 자료를 얻을 수 있습니다. 즉, 9개의 정보를 얻을 수 있습니다.</p>
+
+  <br>
+  <hr>
+  <br>
+
+  <img
+  src="./resources/rule_based/images/img7.svg"
+  alt="Example Image"
+  width="500"
+  height="300"
+/>
+
+<br>
+
+<p>가로줄과 가로줄 사이는 100픽셀보다 작으므로 충분하다고 판단하고, 세로줄 사이는 160픽셀이므로 100픽셀보다 커서 세로줄을 각각의 중앙에 해당하는 선을 추가로 더 그리면 위의그림과 같이 가로줄 3개, 세로줄 7개를 그리게 됩니다.</p>
+
+<br>
+<hr>
+<br>
+
+<img
+src="./resources/rule_based/images/img8.svg"
+alt="Example Image"
+width="500"
+height="300"
+/>
+
+<br>
+
+<div class="image-info">
+  <p>지금까지의 과정을 정리하면 다음 그림과 같습니다.</p>
+  <ul>
+      <li><span class="highlight">Resized 된 이미지의 크기:</span> 640 * 480 픽셀</li>
+      <li><span class="highlight">이미지의 가장 왼쪽 위 픽셀의 위치:</span> (0, 0)</li>
+      <li><span class="highlight">이미지의 가장 오른쪽 아래 픽셀의 위치:</span> (479, 639)</li>
+  </ul>
+</div>
+<div class="grid-info">
+  <ul>
+      <li><span class="highlight">격자(Grid)의 경우:</span> 세로줄 7개와 가로줄 3개</li>
+      <li><span class="highlight">ROI의 크기:</span> 640 * 172 픽셀</li>
+      <li><span class="highlight">격자(Grid)의 한 칸의 크기:</span> 80 * 43 픽셀</li>
+  </ul>
+</div>
+
+<br>
+<hr>
+<br>
+
+<img
+src="./resources/rule_based/images/img10.svg"
+alt="Example Image"
+width="500"
+height="300"
+/>
+
+<br>
+<p>컴퓨터에서 이미지 정보를 픽셀로 표현할 때 보통 제일 왼쪽 윗부분을 0픽셀로 읽게 됩니다. 따라서 (수평픽셀, 수직픽셀)로 표현하게 되면 제일 왼쪽 윗부분은 (0, 0)이 되고, 제일 오른쪽 윗부분은 (0, 639)이 되고, 제일 왼쪽 아랫부분은 (479, 0)이 되고, 제일 오른쪽 아랫부분은 (479, 639)가 됩니다. 첫 번째 픽셀을 0으로 표현하고, 두 번째 픽셀을 1로 표현한다는 것에 주의하시면 마지막 640번째 픽셀은 639가 된다는 것을 알 수 있습니다.</p>
+<br>
+
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <!-- <button id="next" onclick="callCppCallback('2.py')"> -->
+          <button id="next">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg1.html';
+      };
+      // window.onload = function () {
+      //   callCppCallback('resources/pg1/codes/1.py');
+      //   // Your code that needs access to the DOM can go here
+      // };
+    </script>
+  </body>
+</html>

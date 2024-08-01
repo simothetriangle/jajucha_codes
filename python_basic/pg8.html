@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+
+      <h2>Function : 함수</h2>
+
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 함수 - function</h3>
+        <br />
+        <img
+          src="./resources/pg8/images/img1.svg"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <br />
+        <br />
+
+        <p>
+          def 키워드로 정의하며, 함수 이름과 매개변수를 사용해 호출합니다.
+          함수는 특정 작업을 수행하는 코드 블록으로 구성되며, 필요에 따라 인수를
+          전달받아 처리합니다. 작업 결과는 return 키워드를 사용해 반환합니다.
+        </p>
+      </div>
+
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 반복문 - range</h3>
+        <br />
+        <img
+          src="./resources/pg8/images/img2.svg"
+          alt="Example Image"
+          width="500"
+          height="300"
+        />
+
+        <br />
+        <br />
+
+        <p>
+          파이썬에서 함수 호출은 함수의 이름을 사용하여 이루어지며, 함수 이름
+          뒤에 괄호를 붙입니다. 이 괄호 안에는 함수가 필요로 하는 인수들을
+          순서대로 전달할 수 있습니다. 함수 호출이 이루어지면, 함수는 정의된
+          작업을 수행하고, 필요에 따라 결과값을 반환합니다.
+        </p>
+      </div>
+
+      <br />
+
+      <div class="type3">
+        <h3>Theme2 : for - 반복문 예제</h3>
+        <pre><code class="language-python">def my_function():
+    return "Hello from a function"
+
+result = my_function()
+print(result)  # "Hello from a function"
+      </code></pre>
+        <p>반복문의 에시 코드 입니다 실행하여 결과를 확인하세요</p>
+      </div>
+
+      <br />
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg8.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg7.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/pg8/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+
+      <h2>VARIABLE : 변수</h2>
+
+      <div class="type1">
+        <img
+          src="./resources/pg2/images/img1.svg"
+          alt="Example Image"
+          width="150"
+          height="300"
+        />
+        <br />
+        <p>
+          변수라는것은 변할 수 있는 수를 의미하는것으로 특정한 데이터를 저장
+          하기 위하여 사용됩니다. 흔히 “숫자” , “문자”를 담기 위하여 사용 됩니다
+        </p>
+      </div>
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 변수의 표현</h3>
+        <img
+          src="./resources/pg2/images/img2.svg"
+          alt="Example Image"
+          width="300"
+          height="300"
+        />
+        <br />
+        <p>
+          우리는 특정한 정보를 변수에 넣고 싶습니다. 사람에게는 다음과 같은
+          그림으로 표현한다면 이해를 하겠지만, 컴퓨터는 그렇지 못합니다. 따라서
+          개발자들은 컴퓨터를 위한 규칙을 만들었습니다.
+        </p>
+        <br />
+        <img
+          src="./resources/pg2/images/img3.svg"
+          alt="Example Image"
+          width="300"
+          height="300"
+        />
+        <br />
+        <p>위의 그림을 실질적인 값으로 표현하면 다음과 같습니다</p>
+
+        <br />
+        <img
+          src="./resources/pg2/images/img4.svg"
+          alt="Example Image"
+          width="200"
+          height="300"
+        />
+        <br />
+        <!-- <p> -->
+        <ul>
+          <li>등호(=)의 왼쪽: 변수이름.데이터를 저장할 공간을 의미합니다.</li>
+          <li>등호(=)의 오른쪽: 저장할 데이터.변수에 저장될 실제 값입니다.</li>
+        </ul>
+        <!-- </p> -->
+      </div>
+
+      <br />
+
+      <div class="type3">
+        <h3>Problem 1 : 변수 값 출력하기</h3>
+        <img
+          src="./resources/pg2/images/img5.svg"
+          alt="Example Image"
+          width="300"
+          height="300"
+        />
+        <p>
+          현재 변수가 정의되어 있습니다. 정의되어 있는 변수를 다음과 같이
+          출력하세요 출력 후 check 버튼눌러 정답을 확인하세요
+        </p>
+      </div>
+
+      <br />
+
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg3.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg1.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/pg2/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

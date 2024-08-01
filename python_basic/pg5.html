@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+
+      <h2>Conditional : 조건문</h2>
+
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 조건문- if</h3>
+        <h2>if : 만약 ~라면</h2>
+        <img
+          src="./resources/pg5/images/img1.svg"
+          alt="Example Image"
+          width="500"
+          height="300"
+        />
+
+        <br />
+        <br />
+
+        <p>
+          if 문은 조건에 따라 다른 코드를 실행하도록 하는 중요한 문법입니다.
+          "만약 이 조건이 맞으면, 이 일을 하고, 그렇지 않으면 다른 일을 해"라는
+          논리입니다.
+        </p>
+      </div>
+
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 조건문- elif</h3>
+        <h2>elif : 만약 if 가 아니 라면</h2>
+        <img
+          src="./resources/pg5/images/img2.svg"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <br />
+
+        <p>
+          "else if"의 줄임말입니다. if 문과 함께 사용하여 여러 조건을 순차적으로
+          검사할 때 유용합니다. 각 조건이 차례로 검사되며, 처음으로 참인 조건의
+          코드 블록이 실행됩니다.
+        </p>
+      </div>
+
+      <br />
+      <div class="type2">
+        <h3>Theme1 : Theme1 : 조건문- else</h3>
+        <h2>else : if ,elif 아니라면</h2>
+        <img
+          src="./resources/pg5/images/img3.svg"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <br />
+        <p>
+          else 문은 if 문이나 elif 문 다음에 사용되어, 앞의 조건들이 모두 거짓일
+          때 실행되는 코드를 정의합니다. 쉽게 말해, 모든 조건이 맞지 않을 경우에
+          실행할 코드를 지정하는 것입니다. else 문은 조건이 필요 없으며, 반드시
+          마지막에 위치해야 합니다.
+        </p>
+      </div>
+
+      <br />
+
+      <div class="type3">
+        <h3>Theme1 : 조건문- 예제</h3>
+        <pre><code class="language-python">a = 200
+b = 33
+
+if b > a:
+    print("b is greater than a")
+elif a == b:
+    print("a and b are equal")
+else:
+    print("a is greater than b")</code></pre>
+        <p>조건문의 에시 코드 입니다 실행하여 결과를 확인하세요</p>
+      </div>
+
+      <br />
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg6.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg4.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/pg5/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

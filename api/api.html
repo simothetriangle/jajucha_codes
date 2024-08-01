@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <d class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+    </d>
+
+    <h2> API : BASE CODE</h2>
+<div class="api">
+<pre><code class="language-python">#자주차 기본 동작코드
+from control import Jajucha
+import cv2
+
+def main_loop():
+    qrgb,qdepth = jajucha.camera_init() #카메라 인스턴스 가져오기
+    while True: 
+        rgb = jajucha.image_get(qrgb) #RGB 이미지 가져오기
+        jajucha.image_send(rgb) #이미지를 PC로 전송
+      
+if __name__ == "__main__":
+    jajucha = Jajucha() #자주차 객체선언
+    jajucha.control(45,45,50) #정지
+    main_loop() #메인함수</code></pre>
+
+
+  </div>
+    <br>
+    <hr>
+    <br>
+    
+
+<div class="api">
+  <h2> API : CONTROL</h2>
+        <pre><code class="language-python">jajucha.control(left_steer: int, right_steer: int, speed: int)  #모터제어
+</code></pre>
+  <p>parameters</p>
+  <ul>
+    <li>left_steer : 왼쪽 조향각이며, 45도가 기본, 30-60범위이다 </li>
+    <li>right_steer : 왼쪽 조향각이며, 45도가 기본, 30-60범위이다 </li>
+    <li>speed : 속도이며, 50이 기본, 1-99범위이다 </li>
+  </ul>
+  <pre><code class="language-python">#Example
+jajucha.control(45,45,50) #정지
+jajucha.control(30,30,60) #좌회전직진
+jajucha.control(60,60,80) #우회전직진</code></pre>
+</div>
+
+<br>
+<hr>
+<br>
+
+<div class="api">
+  <h2> API : VISION</h2>
+  <pre><code class="language-python">qrgb,qdepth = jajucha.camera_init()  #rgb , depth 이미지 큐 객체 가져오기</code></pre>
+<p>return</p>
+<ul>
+  <li>qrgb : 
+    rgb 이미지 의 queue 객체로 추후에 queue에서 rgb 이미지를 가져올 수 있습니다</li>
+  <li>qdepth : depth이미지 의 queue 객체로 추후에 queue에서 depth 이미지를 가져올 수 있습니다</li>
+  </ul>
+
+  <br>
+
+  <pre><code class="language-python">image = jajucha.image_get(qrgb: depthai.DataOutputQueue)  #이미지 가져오기</code></pre>
+  <p>parameters</p>
+  <ul>
+  <li>queue : input parameter로는 jajucha.camera_init으로 얻은 qrgb 들어가야 합니다</li>
+  </ul>
+  <p>return</p>
+  <ul>
+    <li>image : output으로는 실제의 이미지 데이터가 출력되게 됩니다. 기본 이미지 사이즈는 640*480 입니다</li>
+  </ul>
+
+  <br>
+
+  <pre><code class="language-python">image = jajucha.depth_get(qdepth: depthai.DataOutputQueue)  #이미지 가져오기</code></pre>
+  <p>parameters</p>
+  <ul>
+  <li>queue : input parameter로는 jajucha.camera_init으로 얻은 qdepth 들어가야 합니다</li>
+  </ul>
+  <p>return</p>
+  <ul>
+    <li>image : output으로는 실제의 거리이미지 데이터가 출력되게 됩니다. 기본 이미지 사이즈는 640*480 입니다</li>
+  </ul>
+
+  <br>
+
+  <pre><code class="language-python">jajucha.image_send(image: numpy.ndarray,divide=2: int)  #컴퓨터로 이미지 보내기</code></pre>
+  <p>parameters</p>
+  <ul>
+    <li>image : input parameter로는 jajucha.image_get으로 얻은 image 가 들어가야 합니다</li>
+    <li>divide : 기본 값은 2로 되어 있으며 카메라의 (속도 / divide)의 fps로 이미지를 컴퓨터로 전송 합니다</li>
+  </ul>
+
+  <br>
+
+  <pre><code class="language-python">(V,L,R) , output = jajucha.gridFront(image: numpy.ndarray)  #그리드 이미지로 변환</code></pre>
+  <p>parameters</p>
+  <ul>
+    <li>image : input parameter로는 jajucha.image_get으로 얻은 image 가 들어가야 합니다</li>
+  </ul>
+  <p>return</p>
+  <ul>
+    <li>V : 7 3개의 데이터를 가진 List 데이터 </li> 
+    <li>L : 3개의 데이터를 가진 List 데이터 </li>
+    <li>R : 3개의 데이터를 가진 List 데이터</li>
+    <li>output : 격자가 그려진 이미지</li>
+    </ul>
+
+    <pre><code class="language-python">distance = distance_get(depth: numpy.ndarray,center=(240,320): tuple,
+region_size=(50,50)): tuple #depth 이미지에서 거리를 측정</code></pre>
+    <p>parameters</p>
+    <ul>
+      <li>depth : input parameter로는 jajucha.image_get으로 얻은 depth 가 들어가야 합니다</li>
+      <li>center : 거리를 측정할 영역의 중심을 정합니다, 기본값은 이미지의 중심은 (240,320)입니다</li>
+      <li>region_size : 거리를 측정할 영역의 크기를 정합니다, 기본값은 이미지의 중심은 (50,50)입니다</li>
+    </ul>
+    <p>return</p>
+    <ul>
+      <li>distance : 0-100까지의 거리 데이터, 100에 가까울수록 거리가 가깝다 </li> 
+      </ul>
+</div>
+
+<br>
+<hr>
+<br>
+
+
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg1.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/python_basic/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

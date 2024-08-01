@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+
+      <h2>OPERATOR : 연산자</h2>
+
+      <div class="type1">
+        <img
+          src="./resources/pg4/images/img1.svg"
+          alt="Example Image"
+          width="200"
+          height="300"
+        />
+
+        <br />
+        <p>파이썬 연산자는 값을 조작하고 계산하는 데 사용되는 기호입니다</p>
+        <ul>
+          <li>산술 연산자</li>
+          <li>비교 연산자</li>
+          <li>논리 연산자</li>
+        </ul>
+        <p>크게 위의 3가지 연산자로 구성되어 집니</p>
+      </div>
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 연산자- 산술</h3>
+        <img
+          src="./resources/pg4/images/img2.svg"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <br />
+
+        <p>파이썬에서 사용 할 수 있는 산술연산자는 다음과 같습니다</p>
+      </div>
+
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 연산자- 비교</h3>
+        <img
+          src="./resources/pg4/images/img3.svg"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <br />
+
+        <p>파이썬에서 사용 할 수 있는 비교 연산자는 다음과 같습니다</p>
+      </div>
+
+      <br />
+      <div class="type2">
+        <h3>Theme1 : 연산자- 논리</h3>
+        <img
+          src="./resources/pg4/images/img4.svg"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <br />
+        <p>파이썬에서 사용 할 수 있는 논리 연산자는 다음과 같습니다</p>
+      </div>
+
+      <br />
+
+      <div class="type3">
+        <h3>Theme2 : 연산자 실습</h3>
+        <h2>문제: 보물 찾기</h2>
+        <img
+          src="./resources/pg4/images/img5.svg"
+          alt="Example Image"
+          width="200"
+          height="300"
+        />
+
+        <br />
+        <p>
+          당신은 고대 유적지에 도착했습니다. 전설에 따르면, 이 유적지에는 보물이
+          숨겨져 있습니다. 그러나 보물은 간단한 수학적 계산을 통해 발견할 수
+          있습니다.
+        </p>
+        <ul>
+          <li>
+            유적지의 특이한 특성 상, 보물은 숫자로 이루어진 특정 방정식의 해일
+            것으로 추정됩니다.
+          </li>
+          <li>당신에게 주어진 방정식은 다음과 같습니다: ( 𝑎 + 𝑏 ) × 𝑐 + 𝑑</li>
+          <ul>
+            <li>a = 10</li>
+            <li>b = 5</li>
+            <li>c = 2.5</li>
+            <li>d = 50</li>
+          </ul>
+        </ul>
+        <p>주어진 방정식의 해를 찾고, Check 버튼을 통해서 체점하세요</p>
+      </div>
+
+      <br />
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg5.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg3.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/pg4/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

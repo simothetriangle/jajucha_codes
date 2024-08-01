@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+
+      <h2>3 : 격자와의 교점에서 데이터 얻기</h2>
+
+      <br />
+
+      <p>
+        이미지에 격자를 생성하여 데이터를 얻고자 할 때, 어느 값을 데이터로
+        결정할 것인가에 대해 정해진 것은 없습니다. 실제 자율주행자동차에서 주행
+        알고리즘을 만들어왔던 역사에서는 가운데 세로선(중앙선)에서 떨어진
+        거리값을 데이터로 얻고, 이미지 바닥에서 차선까지의 거리값을 데이터로
+        얻었습니다. 편의상 여기에서도 이 방법을 따르도록 하겠습니다.
+      </p>
+
+      <br />
+      <hr />
+      <br />
+
+      <img
+        src="./resources/pg1/images/img1.svg"
+        alt="Example Image"
+        width="500"
+        height="300"
+      />
+
+      <br />
+  <ul>
+      <li>L 값은 중앙의 세로선에서 왼쪽으로 떨어져 있는 픽셀값이다.</li>
+      <ul>
+          <li>L[0]의 값은 2칸을 넘고, 3칸은 안되므로 160~239 사이가 된다. ⇨ <strong>L[0] = 218</strong></li>
+          <li>L[1]의 값은 3칸을 넘고, 끝은 아니므로 240~319 사이가 된다. ⇨ <strong>L[1] = 272</strong></li>
+          <li>L[2]의 값은 3칸을 넘고, 끝은 아니므로 240~319 사이가 된다. ⇨ <strong>L[2] = 309</strong></li>
+      </ul>
+  </ul>
+  <ul>
+    <li>R 값은 중앙의 세로선에서 오른쪽으로 떨어져 있는 픽셀값이다.</li>
+    <ul>
+        <li>R[0]의 값은 2칸을 넘고, 3칸은 안되므로 160~239 사이가 된다. ⇨ <strong>R[0] = 210</strong></li>
+        <li>R[1], R[2]의 값은 없다. 이때의 디폴트 값은 320이다. ⇨ <strong>R[1] = 320</strong>, <strong>R[2] = 320</strong></li>
+    </ul>
+</ul>
+
+<br />
+<hr />
+<br />
+
+<img
+src="./resources/pg1/images/img2.svg"
+alt="Example Image"
+width="500"
+height="300"
+/>
+
+<ul>
+  <li>V[0]의 값은 2칸을 넘고, 3칸은 안되므로 86~128 사이가 된다. ⇨ <strong>V[0] = 113</strong></li>
+  <li>V[1]의 값은 3칸을 넘고, 끝은 아니므로 129~170 사이가 된다. ⇨ <strong>V[1] = 154</strong></li>
+  <li>V[2] ~ V[5]의 값은 없다. 이때의 디폴트 값은 171이다. ⇨ <strong>V[2] = 171</strong>, <strong>V[3] = 171</strong>, <strong>V[4] = 171</strong>, <strong>V[5] = 171</strong></li>
+  <li>V[6]의 값은 2칸을 넘고, 3칸은 안되므로 86~128 사이가 된다. ⇨ <strong>V[6] = 114</strong></li>
+</ul>
+<p>위의 결과를 정리하면 다음과 같습니다</p>
+<p style="text-align: center;"><strong>V = [113, 154, 171, 171, 171, 171, 114]</strong></p>
+
+<br>
+
+        <span class="movebtn">
+          <!-- <button><a href="pb2.html">next</a></button> -->
+          <button id="back">
+            <img
+              src="resources/general/images/left.svg"
+              alt="Back"
+              width="40"
+              height="40"
+            />
+          </button>
+          <button id="next" onclick="callCppCallback('2.py')">
+            <img
+              src="resources/general/images/right.svg"
+              alt="Back"
+              width="40"
+              height="40"
+            />
+          </button>
+        </span>
+      </p>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg2.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'rule_based.html';
+      };
+      // window.onload = function () {
+      //   callCppCallback('resources/pg1/codes/1.py');
+      //   // Your code that needs access to the DOM can go here
+      // };
+    </script>
+  </body>
+</html>

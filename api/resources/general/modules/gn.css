@@ -1,0 +1,168 @@
+/* CSS 스타일링 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  color: #eeeef1;
+  padding: 0px;
+  background-color: #21252b;
+}
+.container {
+  max-width: 800px;
+  border-radius: 5px;
+  line-height: 1.8;
+  color: #eeeef1;
+  background-color: #21252b;
+}
+.container button {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.type2 {
+  background-color: #3b4049;
+  /* border-radius: 10px; */
+  padding: 10px;
+}
+
+.type3 {
+  background-color: #637186;
+  /* border-radius: 10px; */
+  padding: 10px;
+}
+
+.api p {
+  font-size: 22px;
+  padding-left: 5px;
+}
+
+.api ul {
+  line-height: 30px;
+  font-size: 18px;
+}
+
+.api code {
+  line-height: 30px;
+}
+
+.index {
+  text-align: right;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+img {
+  display: block;
+  margin: 0 auto; /* 이미지를 수평 중앙에 정렬하기 위해 추가 */
+  max-width: 100%; /* 이미지의 최대 너비를 화면에 맞게 조정 */
+  height: auto;
+}
+pre {
+  background-color: #2f354b;
+  /* border-radius: 5px; */
+}
+
+code {
+  background-color: #2f354b;
+  /* border-radius: 2px; */
+  padding: 10px;
+  display: block;
+}
+
+.print-code {
+  background-color: #43495f;
+  /* border-radius: 2px; */
+  padding: 4px;
+}
+.highlight {
+  color: yellow; /* 특정 텍스트의 색상을 여기에 지정하세요. */
+}
+
+button {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: none; /* Remove border if needed */
+  padding: 0%;
+  background-color: #21252b;
+}
+
+span button {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: none; /* Remove border if needed */
+  padding: 0%;
+  background-color: #46465a;
+}
+
+button:hover {
+  background-color: #505064; /* Change to desired color */
+}
+
+.movebtn {
+  display: flex;
+  justify-content: space-between; /* 오른쪽과 왼쪽으로 정렬 */
+}
+
+h2 {
+  text-align: center;
+  font-size: 40px;
+}
+
+li {
+  margin-right: 20px;
+}
+
+h3 {
+  margin-top: 5px;
+  margin-right: 5px;
+  text-align: right;
+}
+
+h4 {
+  margin-top: 5px;
+  margin-left: 5px;
+  text-align: right;
+}
+
+p {
+  line-height: 30px;
+  margin: 5px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+code {
+  line-height: 20px;
+  /* border-radius: 10px; */
+  font-size: 22px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 스크롤바의 track(트랙) 부분 스타일링 */
+/* 스크롤바 트랙은 스크롤바의 슬라이더가 움직이는 영역입니다. */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* 스크롤바의 thumb(슬라이더) 부분 스타일링 */
+/* 스크롤바의 슬라이더에 원하는 스타일을 적용합니다. */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+/* 스크롤바의 thumb(슬라이더) 부분 hover 시 스타일링 */
+/* 슬라이더에 hover 효과를 추가할 수 있습니다. */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+
+      <h1>코드 실행하기</h1>
+      <div class="exe_1">
+        <h2>1. 코드 업로드</h2>
+
+        <img
+          src="./resources/pg1/images/img1.png"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <p>
+          위에 보이는 그림과 같이 upload 아이콘을 클릭하면 현재 프로젝트에 있는
+          코드를 자주차로 업로드 할 수 있습니다
+        </p>
+      </div>
+
+      <div class="exe_1">
+        <h2>2. 코드 실행-1</h2>
+        <img
+          src="./resources/pg1/images/img2.png"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <p>
+          업로드가 완료 된 후 init 버튼을 누르면 starting으로 바뀌면서 카메라를
+          실행시키게 됩니다. 카메라 실행이 준비되면 ready 문구가 표시되며
+          아이콘이 초록색으로 변경됩니다
+        </p>
+      </div>
+
+      <div class="exe_1">
+        <h2>2. 코드 실행-2</h2>
+
+        <img
+          src="./resources/pg1/images/img4.png"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+        <p>
+          ready 버튼을 다시 클릭하게 되면 running으로 문구가 바뀌며 아이콘도
+          파란색으로 변경됩니다 실질적으로 코드의 main_loop 가 도는 상황이며
+          이미지를 확인 할 수 있습니다
+        </p>
+      </div>
+
+      <div class="exe_1">
+        <h2>2. 코드 실행-3</h2>
+        <img
+          src="./resources/pg1/images/img5.png"
+          alt="Example Image"
+          width="600"
+          height="400"
+        />
+        <p>최종적으로 실행되는 모습은 다음과 같습니다</p>
+      </div>
+
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg2.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'opencv_basic.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/pg1/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

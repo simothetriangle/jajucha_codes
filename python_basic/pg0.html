@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <h2>PYTHON : 파이썬</h2>
+
+      <!-- 이미지 -->
+      <img
+        src="./resources/python_basic/images/python.svg"
+        alt="Example Image"
+        width="200"
+        height="150"
+      />
+      <!-- 코딩 설명 -->
+      <br />
+
+      <div class="type2">
+        <p>
+          파이썬은 프로그래밍 언어입니다. 언어가 사람 간의 소통 도구라면,
+          프로그래밍 언어는 컴퓨터와 사람이 소통하기 위한 도구입니다.
+        </p>
+        <br>
+        <p>
+          사람의 언어가 규칙을 가지고 있듯이, 프로그래밍 언어도 컴퓨터와
+          소통하기 위한 규칙을 가지고 있습니다. 불필요한 설명은 각설하고, 우선
+          실습부터 진행해보겠습니다.
+        </p>
+        <br>
+        <p>
+          <pre><code class="language-python">print("12")</code></pre> 
+          </p>
+          <p>
+          위의 코드를 오른쪽 코드 편집기로 복사한 후에 실행 버튼을 눌러보면 12라는 출력 결과를 바로 확인할
+          수 있습니다.
+        </p>
+      </div>
+      <br />
+
+      <div class="type2">
+        <h2>실습해 보기</h2>
+        <p>
+          여러분에게 주어진 과제는 12 를 세 번 출력하는 것입니다. 12 를 출력하는
+          방법은 수없이 많은데, 몇 가지 예시를 보여드릴게요.
+        </p>
+
+        <pre><code class="language-python">print(3 * 4)
+print(5 + 7)
+print(15 - 3)
+</code></pre>
+      </div>
+      <br />
+
+      <div class="type3">
+        <h3>Theme1 : 기초 코드 실습</h3>
+        <p>위에 적혀 있는 세 줄 모두 12 를 출력하는 코드입니다.</p>
+        <p>
+          여러분도 12 를 세 번 출력하도록 자유롭게 코드를 작성하고,
+          <span class="highlight">Check</span> 버튼을 클릭해 주세요! 채점결과가 <span style="color:chartreuse"> Grade: Passed </span> 가 나오면
+          성공입니다
+        </p>
+      </div>
+      <br />
+
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg1.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'python_basic.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/python_basic/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

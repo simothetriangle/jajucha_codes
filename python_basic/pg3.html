@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+
+      <h2>DATA TYPE : 자료형</h2>
+
+      <div class="type2">
+        <img
+          src="./resources/pg3/images/img1.svg"
+          alt="Example Image"
+          width="400"
+          height="300"
+        />
+
+        <br />
+        <p>
+          세상은 다양한 데이터로 가득합니다. 프로그래밍에서는 데이터를 분류하여
+          사용하는데, 이를 자료형이라고 합니다. 파이썬에는 크게 3가지의 자료형이
+          존재 합니다
+        </p>
+        <ul>
+          <li><strong>숫자</strong></li>
+          <li><strong>문자</strong></li>
+          <li><strong>불리언</strong></li>
+        </ul>
+        <p>지금부터 자료형의 개념과 종류를 배워보고자 합니다</p>
+      </div>
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 자료형- 숫자</h3>
+        <br />
+        <img
+          src="./resources/pg3/images/img2.svg"
+          alt="Example Image"
+          width="500"
+          height="300"
+        />
+
+        <br />
+        <p>숫자형에는 정수 , 실수 , 복소수가 있습니다.</p>
+        <ul>
+          <li>
+            <strong>정수</strong>는 양수, 음수, 혹은 0이 될 수 있는 숫자입니다.
+          </li>
+          <li><strong>실수</strong>는 소수점이 있는 숫자입니다.</li>
+          <li><strong>복소수</strong>는 실수와 허수 요소를 가진 숫자입니다.</li>
+        </ul>
+
+        <p>숫자를 아래 코드와 같이 프린트하여 결과를 확인해 보세요</p>
+
+        <pre><code class="language-python">#정수 출력
+x1 = 42 
+y1 = -10 
+print(x1)
+print(y1)
+
+################################
+
+#실수 출력
+x2 = 3.14
+y2 = 1.0
+print(x2)
+print(y2)
+
+################################
+
+#허수 출력
+z = 3+4j
+print(z)</code></pre>
+      </div>
+
+      <br />
+
+      <div class="type2">
+        <h3>Theme1 : 자료형 - 문자</h3>
+        <img
+          src="./resources/pg3/images/img3.svg"
+          alt="Example Image"
+          width="300"
+          height="300"
+        />
+
+        <br />
+        <p>
+          문자열은 단어, 문장 과 같은 일련의 텍스트 데이터를 나타내는데
+          사용됩니다.
+        </p>
+        <p>
+          문자열은 작음 따옴표("), 큰 따 옴표("")감싸져있으며, 따옴표 안의
+          문자들이 문자열로 정의됩니다. 문자를 아래 코드와 같이 프린트하여
+          결과를 확인해 보세요
+        </p>
+
+        <pre><code class="language-python">#단어출력
+text1  = "hello"
+text2 = 'world'
+print(text1)
+print(text2)
+
+#문장출력
+sentense = text1 + text2
+print(sentense)</code></pre>
+      </div>
+
+      <br />
+      <div class="type2">
+        <h3>Theme1 : 자료형 - 불리언</h3>
+        <img
+          src="./resources/pg3/images/img4.svg"
+          alt="Example Image"
+          width="300"
+          height="300"
+        />
+
+        <br />
+        <p>불리언(Boolean)은 True와 False의 두 가지 값을 갖는 자료형입니다.</p>
+        <p>
+          불리언 값은 진실 혹은 거짓을 나타내 기 때문에 프로그래밍에서 조건을
+          판단할 때 많이 사용됩니다. 불리언을 아래 코드와 같이 프린트하여 결과를
+          확인해 보세요
+        </p>
+
+        <pre><code class="language-python"># Boolean 값 할당
+is_sunny = True
+is_raining = False
+
+print(is_sunny)   # 출력: True
+print(is_raining) # 출력: False</code></pre>
+      </div>
+
+      <br />
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg4.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg2.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/pg3/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

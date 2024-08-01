@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <body class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+      <h2>5 : 장애물감지</h2>
+      <div class="type1">
+      <img
+        src="./resources/pg2/images/img1.svg"
+        alt="Example Image"
+        width="500"
+        height="300"
+      />
+
+      <br />
+
+      <p style="text-align: center;">
+        실습 트랙을 준비해주세요 - TYPE 0AB0
+      </p>
+
+    </div>
+
+      <br>
+      <hr>
+      <br>
+<div class="type2">
+  <h3>Theme0 : VISION - API</h3>
+  <p style="text-align: left; margin-left: 10px;">장애물을 감지하기 위한 depth 이미지 가져오기 및 거리 추출 코드 입니다</p>
+
+  <pre><code class="language-python">image = jajucha.depth_get(qdepth: depthai.DataOutputQueue)  #이미지 가져오기</code></pre>
+  <p>parameters</p>
+  <ul>
+  <li>queue : input parameter로는 jajucha.camera_init으로 얻은 qdepth 들어가야 합니다</li>
+  </ul>
+  <p>return</p>
+  <ul>
+    <li>image : output으로는 실제의 거리이미지 데이터가 출력되게 됩니다. 기본 이미지 사이즈는 640*480 입니다</li>
+  </ul>
+
+  <pre><code class="language-python">distance = distance_get(depth: numpy.ndarray,center=(240,320): tuple,
+region_size=(50,50)): tuple #depth 이미지에서 거리를 측정</code></pre>
+        <p>parameters</p>
+        <ul>
+          <li>depth : input parameter로는 jajucha.image_get으로 얻은 depth 가 들어가야 합니다</li>
+          <li>center : 거리를 측정할 영역의 중심을 정합니다, 기본값은 이미지의 중심은 (240,320)입니다</li>
+          <li>region_size : 거리를 측정할 영역의 크기를 정합니다, 기본값은 이미지의 중심은 (50,50)입니다</li>
+        </ul>
+        <p>return</p>
+        <ul>
+          <li>distance : 0-100까지의 거리 데이터, 100에 가까울수록 거리가 가깝다 </li> 
+          </ul>
+
+</div>
+
+<br>
+
+<div class='type2'>
+  <h3>Theme1 : 기본동작코드 - 설명</h3>
+      <pre><code class="language-python">#자주차 기본 동작코드
+from control import Jajucha
+import cv2
+
+def main_loop():
+    qrgb,qdepth = jajucha.camera_init() #카메라 인스턴스 가져오기
+    while True: 
+      depth = jajucha.image_get(qdepth) #Depth 이미지 가져오기
+      distance = jajucha.distance_get(depth)
+      print(distance)
+
+      if(distance > 60):
+        jajucha.control(45,45,50)
+      else:
+        jajucha.control(45,45,60)
+
+      jajucha.image_send(depth) #이미지를 PC로 전송
+      
+if __name__ == "__main__":
+    jajucha = Jajucha() #자주차 객체선언
+    jajucha.control(45,45,50) #정지
+    main_loop() #메인함수</code></pre>
+<p>오른쪽 코드 편집기 화면에는 위에 보이는 예시 코드가 있습니다. 실행을 해보기 전에 예시코드의 알고리즘 부분을 파악하고자 합니다</p>
+
+</div>
+
+<br>
+
+<div class="type2">
+    <pre><code class="language-python">depth = jajucha.image_get(qdepth) #Depth 이미지 가져오기
+distance = jajucha.distance_get(depth) #depth 이미지에서 거리값 추출하기
+print(distance)
+
+if(distance > 60):
+  jajucha.control(45,45,50)
+else:
+  jajucha.control(45,45,60)
+</code></pre>
+<p>이미지에서 거리값을 추출하는 함수를 통하여 distance 변수를 return 받습니다. 거리의 범위는 0-100까지로, 숫자가 커질수록 거리가 가까워지는특징을 가지고 있습니다</ㅣ>
+</div>
+
+<br>
+
+<div class="type2">
+  <h3>Theme2 : 기본동작코드 - 실행1</h3>
+
+  <img
+  src="./resources/pg2/images/img2.png"
+  alt="Example Image"
+  width="500"
+  height="300"
+/>
+<br>
+<p>upload 버튼을 눌러 코드를 업로드 합니다</p>
+</div>
+<br>
+
+<div class="type2">
+  <h3>Theme2 : 기본동작코드 - 실행2</h3>
+
+  <img
+  src="./resources/pg2/images/img3.png"
+  alt="Example Image"
+  width="500"
+  height="300"
+/>
+<br>
+<p>upload가 완료되면 init 버튼을 눌러 코드를 실행 합니다</p>
+</div>
+<br>
+
+<div class="type2">
+  <h3>Theme2 : 기본동작코드 - 실행3</h3>
+
+  <img
+  src="./resources/pg2/images/img4.png"
+  alt="Example Image"
+  width="500"
+  height="300"
+/>
+<br>
+<img
+src="./resources/pg2/images/img5.png"
+alt="Example Image"
+width="500"
+height="300"
+/>
+<br>
+<p>init을 누르면 프로그램이 실행되며 노란색 starting 문구로 변경됩니다. 이후 프로그램이 준비가 되면 초록색 ready로 문구가 변경됩니다 </p>
+</div>
+
+<br>
+
+<div class="type2">
+  <h3>Theme2 : 기본동작코드 - 실행4</h3>
+
+  <img
+  src="./resources/pg3/images/img1.png"
+  alt="Example Image"
+  width="500"
+  height="300"
+/>
+<br>
+<p>활성화된 ready 버튼을 누르면 running으로 변경되며 코드가 실행됩니다</p>
+</div>
+<br>
+
+
+<div class="type3">
+  <h3>Theme4 : 기본 주행 실습</h3>
+  <h2>장애물 트랙 주행</h2>
+
+  <img
+  src="./resources/pg3/images/img2.svg"
+  alt="Example Image"
+  width="500"
+  height="300"
+/>
+<br>
+<ul>
+  <li>그림에 장애물이라고 표시된 위치에 20*20*20(cm) 이상 크기의 장애물을 위치시키세요</li>
+  <li>트랙을 장애물을 피하여 주행하세요</li>
+  <li>정지선에서는 5초이상 정지 후 주행 해야 합니다 </li>
+</ul>
+
+
+</div>
+<br>
+      
+
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg3.html';
+      };
+      document.getElementById('back').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg2.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/pg3/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

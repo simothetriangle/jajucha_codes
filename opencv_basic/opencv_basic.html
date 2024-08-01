@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Tutorial</title>
+    <link rel="stylesheet" href="./resources/editor/obsidian.css" />
+
+    <!-- 기본 css 링크 -->
+    <link rel="stylesheet" href="resources/general/modules/gn.css" />
+
+    <!-- 구문 강조 CSS링크 -->
+    <script src="./resources/editor/highlight.js"></script>
+    <!-- 구문 강조 js 링크 -->
+    <script>
+      hljs.highlightAll();
+    </script>
+    <script
+      type="text/javascript"
+      src="qrc:/qtwebchannel/qwebchannel.js"
+    ></script>
+
+    <script type="text/javascript">
+      // Wait for the QWebChannel to be initialized
+      new QWebChannel(qt.webChannelTransport, function (channel) {
+        // Retrieve the callbackHandler object from the channel
+        window.callbackHandler = channel.objects.callbackHandler;
+      });
+
+      // Define a function to invoke the C++ callback
+      function callCppCallback(filepath) {
+        // Check if the callbackHandler object is defined
+        if (window.callbackHandler) {
+          // Call the C++ callback handler method through QWebChannel
+          window.callbackHandler.handleCallback(filepath);
+        } else {
+          console.error('callbackHandler object is not defined');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="button-container">
+      <button onclick="window.location.href = 'menu.html'">
+        <!-- <button type="button"> -->
+        <img
+          src="resources/general/images/menu.svg"
+          alt="Icon"
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+    <div class="container">
+      <!-- 동영상 재생 -->
+      <!-- <video controls>
+        <source src="./resources/video/bubble.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video> -->
+
+      <!-- 이미지 -->
+
+      <!-- 코딩 설명 -->
+      <img
+        src="./resources/opencv_basic/images/ob1_colorcube.png"
+        alt="Example Image"
+        width="400"
+        height="300"
+      />
+      <p>
+        과학시간에 배운 것처럼 빛은 빨강, 파랑 , 초록이라는 삼원색을 가지고
+        있습니다 앞으로우리는 세가지 색깔을 가지고 세상을 파악해 나갈 계획입니다
+        그렇다면 한번 실제 우리가 사는 세상을 빨강 파랑 초록으로 나누어 보고자
+        합니다
+      </p>
+
+      <h2>실습해 보기</h2>
+      <p>
+        여러분에게 주어진 첫번째 과제는 RGB 이미지를 자주차에서 가져오는
+        것입니다. 오른쪽 코드 편집기에 아래과 같은 코드가 표시될 것입니다. 이제
+        다음페이지로 이동하여 코드를 실행 해 보겠습니다
+      </p>
+
+      <pre><code class="language-python">from control import Jajucha #자주차 라이브러리 가져오기
+import cv2 #opencv 가져오기
+
+def main_loop():
+  qrgb,qdepth = jajucha.camera_init()  #자주차의 카메라를 준비
+  while True: 
+    rgb = jajucha.image_get(qrgb) #자주차의 카메라에서 이미지 가져오기
+    jajucha.image_send(rgb) #자주차에서 컴퓨터로 이미지 보내기
+      
+if __name__ == "__main__":
+  jajucha = Jajucha() #자주차 내장 함수 사용을 위한 인스턴스 생성
+  jajucha.control(45,45,50) #자주차의 하드웨어 초기화
+  main_loop() #메인 루프
+</code></pre>
+
+      <span class="movebtn">
+        <!-- <button><a href="pb2.html">next</a></button> -->
+        <button id="back">
+          <img
+            src="resources/general/images/left.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+        <button id="next" onclick="callCppCallback('2.py')">
+          <img
+            src="resources/general/images/right.svg"
+            alt="Back"
+            width="40"
+            height="40"
+          />
+        </button>
+      </span>
+    </div>
+
+    <script>
+      document.getElementById('next').onclick = function () {
+        // 여기에 이동할 페이지의 URL을 입력합니다.
+        window.location.href = 'pg1.html';
+      };
+      window.onload = function () {
+        callCppCallback('resources/pg1/codes/1.py');
+        // Your code that needs access to the DOM can go here
+      };
+    </script>
+  </body>
+</html>

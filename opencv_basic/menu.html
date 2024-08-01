@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expandable Menu</title>
+    <style>
+      .container {
+        text-align: center;
+      }
+
+      .menu {
+        display: none;
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .menu li {
+        margin-bottom: 10px;
+      }
+
+      .expand-btn {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="expand-btn" onclick="toggleMenu()">메뉴 토글</button>
+      <ul class="menu" id="menu">
+        <li><a href="#">메뉴 항목 1</a></li>
+        <li><a href="#">메뉴 항목 2</a></li>
+        <li><a href="#">메뉴 항목 3</a></li>
+      </ul>
+    </div>
+    <div class="container">
+      <button class="expand-btn" onclick="toggleMenu()">메뉴 토글</button>
+      <ul class="menu" id="menu">
+        <li><a href="#">메뉴 항목 1</a></li>
+        <li><a href="#">메뉴 항목 2</a></li>
+        <li><a href="#">메뉴 항목 3</a></li>
+      </ul>
+    </div>
+    <script>
+      function toggleMenu() {
+        var menu = document.getElementById('menu');
+        if (menu.style.display === 'block') {
+          menu.style.display = 'none';
+        } else {
+          menu.style.display = 'block';
+        }
+      }
+    </script>
+  </body>
+</html>
