@@ -2,7 +2,6 @@
 from control import Jajucha
 import cv2
 
-#for chk
 
 def main_loop():
     #set variables
