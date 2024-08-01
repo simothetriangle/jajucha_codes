@@ -40,12 +40,12 @@ def main_loop():
                 evt_2 = 2
             else:
                 evt_2 = 1
-        elif(L[1] != R[1] and (L[1] < 160 or R[1] < 160)):
+        elif(L[1] != R[1] and (L[1] < 150 or R[1] < 150)):
             if(L[1] - R[1] < 0):
                 evt_2 = 2
             else:
                 evt_2 = 1
-        elif(L[0] != R[0] and (L[0] < 160 or R[0] < 160)):
+        elif(L[0] != R[0] and (L[0] < 140 or R[0] < 140)):
             if(L[0] - R[0] < 0):
                 evt_2 = 2
             else:
