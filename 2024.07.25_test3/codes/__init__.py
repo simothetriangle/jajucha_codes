@@ -31,18 +31,25 @@ def main_loop():
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
         
         Vcntlimit = 171;
-        cntVL_e1 = 0
-        cntVR_e1 = 0
+        cntVL_e2 = 0
+        cntVR_e2 = 0
+        cntV_e2 = 0
 
-        for ni in range(3):
-            if(V[ni] < Vcntlimit):
-                cntVL_e2 += 1
-            if(V[6 - ni] < Vcntlimit):
-                cntVR_e2 += 1
+        h = 0
+        for ni in range(7):
+            if(h == 0):
+                if(V[ni] < Vcntlimit):
+                    h = 1
+                    cntV_e2 += 1
+            else:
+                if(V[ni] < Vcntlimit):
+                    h = 0
+                else:
+                    cntV_e2 += 1
 
 
         if(cntVL_e1 != cntVR_e1): #check vertical nums
-            if(cntVL_e1 > cntVR_e1):
+            if(cntVL_e2 > cntVR_e2):
                 evt_2 = 1
             else:
                 evt_2 = 2
