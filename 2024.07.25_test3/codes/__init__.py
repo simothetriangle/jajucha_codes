@@ -30,15 +30,22 @@ def main_loop():
         #evt_2 - line tracing
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
         
-        cntL_e1 = 0
-        cntR_e1 = 0
-        
-        for ni in range(7):
-            
-            V[ni]
+        Vcntlimit = 171;
+        cntVL_e1 = 0
+        cntVR_e1 = 0
 
-        if(): 
-            #a
+        for ni in range(3):
+            if(V[ni] < Vcntlimit):
+                cntVL_e2 += 1
+            if(V[6 - ni] < Vcntlimit):
+                cntVR_e2 += 1
+
+
+        if(cntVL_e1 != cntVR_e1): 
+            if(cntVL_e1 > cntVR_e1):
+                evt_2 = 1
+        elif():
+
         else:
             if(L[2] == R[2]):
                 if(L[2]  < 320):
