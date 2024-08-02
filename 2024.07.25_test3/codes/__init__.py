@@ -41,12 +41,12 @@ def main_loop():
                 cntVR_e2 += 1
 
 
-        if(cntVL_e1 != cntVR_e1): 
+        if(cntVL_e1 != cntVR_e1): #check vertical nums
             if(cntVL_e1 > cntVR_e1):
                 evt_2 = 1
-        elif():
-
-        else:
+            else:
+                evt_2 = 2
+        else: #check horizental nums
             if(L[2] == R[2]):
                 if(L[2]  < 320):
                     evt_2 = 1
