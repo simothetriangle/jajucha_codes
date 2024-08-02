@@ -30,28 +30,38 @@ def main_loop():
         #evt_2 - line tracing
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
         
-        if(L[2] == R[2]):
-            if(L[2]  < 320):
-                evt_2 = 1
-            else:
-                evt_2 = 2
-        elif(L[2] != R[2] and (L[2] < 160 or R[2] < 160)):
-            if(L[2] - R[2] < 0):
-                evt_2 = 2
-            else:
-                evt_2 = 1
-        elif(L[1] != R[1] and (L[1] < 150 or R[1] < 150)):
-            if(L[1] - R[1] < 0):
-                evt_2 = 2
-            else:
-                evt_2 = 1
-        elif(L[0] != R[0] and (L[0] < 140 or R[0] < 140)):
-            if(L[0] - R[0] < 0):
-                evt_2 = 2
-            else:
-                evt_2 = 1
+        cntL_e1 = 0
+        cntR_e1 = 0
+        
+        for ni in range(7):
+            
+            V[ni]
+
+        if(): 
+            #a
         else:
-            evt_2 = 0
+            if(L[2] == R[2]):
+                if(L[2]  < 320):
+                    evt_2 = 1
+                else:
+                    evt_2 = 2
+            elif(L[2] != R[2] and (L[2] < 160 or R[2] < 160)):
+                if(L[2] - R[2] < 0):
+                    evt_2 = 2
+                else:
+                    evt_2 = 1
+            elif(L[1] != R[1] and (L[1] < 150 or R[1] < 150)):
+                if(L[1] - R[1] < 0):
+                    evt_2 = 2
+                else:
+                    evt_2 = 1
+            elif(L[0] != R[0] and (L[0] < 140 or R[0] < 140)):
+                if(L[0] - R[0] < 0):
+                    evt_2 = 2
+                else:
+                    evt_2 = 1
+            else:
+                evt_2 = 0
 
 
         #movement
