@@ -2,6 +2,12 @@
 from control import Jajucha
 import cv2
 
+def Fevt_1():
+    ##
+
+def Fevt_2():
+    ##
+
 def main_loop():
     #set variables
     evt_1 = 0
