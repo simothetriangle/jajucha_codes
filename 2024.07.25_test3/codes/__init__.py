@@ -2,11 +2,67 @@
 from control import Jajucha
 import cv2
 
-def Fevt_1():
-    ##
 
-def Fevt_2():
-    ##
+def Fevt_1(): #evt_1 - scan obstacles
+    if(distance > 60):
+            return 1
+        else:
+            return 0
+
+def Fevt_2(): #evt_2 - line tracing
+    
+    """
+    Vcntlimit = 171
+    sV_e2 = 0
+    eV_e2 = 0
+
+    h_e2 = 0
+    for ni in range(7):
+        if(h == 0):
+            if(V[ni] >= Vcntlimit):
+                h_e2 = 1
+                sV_e2 = ni
+        else:
+            if(V[ni] < Vcntlimit):
+                h_e2 = 2
+                eV_e2 = ni
+        
+    #
+    if(R[0] > R[1] || R[1] > R[2]):
+        #
+
+    if(L[0] < L[1] || L[1] < L[2]):
+        #
+
+    if((sV_e2 + eV_e2) / 2 != 3): #check vertical nums
+        if((sV_e2 + eV_e2) / 2 > 3):
+            evt_2 = 1
+        else:
+            evt_2 = 2
+    else: #check horizental nums
+        if(L[2] == R[2]):
+            if(L[2]  < 320):
+                evt_2 = 1
+            else:
+                evt_2 = 2
+        elif(L[2] != R[2] and (L[2] < 160 or R[2] < 160)):
+            if(L[2] - R[2] < 0):
+                evt_2 = 2
+            else:
+                evt_2 = 1
+        elif(L[1] != R[1] and (L[1] < 150 or R[1] < 150)):
+            if(L[1] - R[1] < 0):
+                evt_2 = 2
+            else:
+                evt_2 = 1
+        elif(L[0] != R[0] and (L[0] < 140 or R[0] < 140)):
+            if(L[0] - R[0] < 0):
+                evt_2 = 2
+            else:
+                evt_2 = 1
+        else:
+            evt_2 = 0
+    """
 
 def main_loop():
     #set variables
@@ -24,68 +80,12 @@ def main_loop():
         distance = jajucha.distance_get(depth)
         
         #Events
-        #evt_1 - scan obstacles
         print(distance)
-
-        if(distance > 60):
-            evt_1 = 1
-        else:
-            evt_1 = 0
-            
-
-        #evt_2 - line tracing
+        evt_1 = Fevt_1()
+        
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
+        evt_2 = Fevt_2()
         
-        Vcntlimit = 171;
-        sV_e2 = 0
-        eV_e2 = 0
-
-        h_e2 = 0
-        for ni in range(7):
-            if(h == 0):
-                if(V[ni] >= Vcntlimit):
-                    h_e2 = 1
-                    sV_e2 = ni
-            else:
-                if(V[ni] < Vcntlimit):
-                    h_e2 = 2
-                    eV_e2 = ni
-        
-        #
-        if(R[0] > R[1] || R[1] > R[2]):
-            #
-
-        if(L[0] < L[1] || L[1] < L[2]):
-            #
-
-        if((sV_e2 + eV_e2) / 2 != 3): #check vertical nums
-            if((sV_e2 + eV_e2) / 2 > 3):
-                evt_2 = 1
-            else:
-                evt_2 = 2
-        else: #check horizental nums
-            if(L[2] == R[2]):
-                if(L[2]  < 320):
-                    evt_2 = 1
-                else:
-                    evt_2 = 2
-            elif(L[2] != R[2] and (L[2] < 160 or R[2] < 160)):
-                if(L[2] - R[2] < 0):
-                    evt_2 = 2
-                else:
-                    evt_2 = 1
-            elif(L[1] != R[1] and (L[1] < 150 or R[1] < 150)):
-                if(L[1] - R[1] < 0):
-                    evt_2 = 2
-                else:
-                    evt_2 = 1
-            elif(L[0] != R[0] and (L[0] < 140 or R[0] < 140)):
-                if(L[0] - R[0] < 0):
-                    evt_2 = 2
-                else:
-                    evt_2 = 1
-            else:
-                evt_2 = 0
 
 
         #movement
