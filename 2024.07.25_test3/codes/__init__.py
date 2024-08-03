@@ -44,7 +44,13 @@ def main_loop():
                 if(V[ni] < Vcntlimit):
                     h_e2 = 2
                     eV_e2 = ni
+        
+        #
+        if(R[0] > R[1] || R[1] > R[2]):
+            #
 
+        if(L[0] < L[1] || L[1] < L[2]):
+            #
 
         if((sV_e2 + eV_e2) / 2 != 3): #check vertical nums
             if((sV_e2 + eV_e2) / 2 > 3):
