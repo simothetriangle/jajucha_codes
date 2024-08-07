@@ -3,18 +3,29 @@ from control import Jajucha
 import cv2
 
 
-def Fevt_1(): #evt_1 - scan obstacles
+def Fevt_1(distance): #evt_1 - scan obstacles
     if(distance > 60):
             return 1
         else:
             return 0
 
-def Fevt_2(): #evt_2 - line tracing
+def Fevt_2(V, L, R): #evt_2 - line tracing
     #exception1_RoverL or LoverR -> chk V -> chk LR
-    
-    
-    Vcntlimit = 171
-    
+
+    h_e2 = 0;
+    for ni in range(4):
+        if(ni*43 + 42):
+            for ni in range(7):
+                if(h == 0):
+                    if(V[ni] >= Vcntlimit):
+                        h_e2 = 1
+                        sV_e2 = ni
+                else:
+                    if(V[ni] < Vcntlimit):
+                        h_e2 = 2
+                        eV_e2 = ni
+
+
     
     """
     Vcntlimit = 171
@@ -86,10 +97,10 @@ def main_loop():
         
         #Events
         print(distance)
-        evt_1 = Fevt_1()
+        evt_1 = Fevt_1(distance)
         
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
-        evt_2 = Fevt_2()
+        evt_2 = Fevt_2(V, L, R)
         
 
 
