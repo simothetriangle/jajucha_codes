@@ -11,7 +11,7 @@ def Fevt_1(): #evt_1 - scan obstacles
 
 def Fevt_2(): #evt_2 - line tracing
     #exception1_RoverL or LoverR -> chk V -> chk LR
-
+    
     
     Vcntlimit = 171
     
