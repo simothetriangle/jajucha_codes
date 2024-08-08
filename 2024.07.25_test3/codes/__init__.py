@@ -44,7 +44,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
         
         mid_axis = (sV_e2 + eV_e2) / 2
         if(mid_axis != 3):
-            if(mid_axis / 2 < 3):
+            if(mid_axis < 3):
                 return 2
             else:
                 return 1
@@ -53,12 +53,12 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     for ni in range(3):
         for nj in range(4):
             hV_e2 = 0
-            cntlimMin = nj*43
-            cntlimMax = cntlimMin + 42
+            cntlim_Min = nj*43
+            cntlim_Max = cntlim_Min + 42
 
-            if(V[ni] >= cntlimMin && V[ni] < cntlimMax):
+            if(V[ni] >= cntlim_Min && V[ni] < cntlim_Max):
                 hV_e2 += 1
-            if(V[6-ni] >= cntlimMin && V[6-ni] < cntlimMax):
+            if(V[6-ni] >= cntlim_Min && V[6-ni] < cntlim_Max):
                 hV_e2 -= 1
 
             if(hEx1_e2 == 1):
@@ -66,7 +66,29 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
             elif(hEx1_e2 == -1):
                 return 1
 
-    #chk LR
+    #chk LR <-- 수정 필요 (jajucha.control -> return, 각각 수치 변경)
+    if(L[2] == R[2]):
+            if(L[2]  < 320):
+                jajucha.control(30,30,speedTurn)
+            else:
+                jajucha.control(60,60,speedTurn)
+        elif(L[2] != R[2] and (L[2] < 160 or R[2] < 160)):
+            if(L[2] - R[2] < 0):
+                jajucha.control(60,60,speedTurn)
+            else:
+                jajucha.control(30,30,speedTurn)
+        elif(L[1] != R[1] and (L[1] < 160 or R[1] < 160)):
+            if(L[1] - R[1] < 0):
+                jajucha.control(60,60,speedTurn)
+            else:
+                jajucha.control(30,30,speedTurn)
+        elif(L[0] != R[0] and (L[0] < 160 or R[0] < 160)):
+            if(L[0] - R[0] < 0):
+                jajucha.control(60,60,speedTurn)
+            else:
+                jajucha.control(30,30,speedTurn)
+        else:
+            jajucha.control(45,45,speedOrig)
 
 
 def main_loop():
