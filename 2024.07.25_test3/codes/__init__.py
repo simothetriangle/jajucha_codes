@@ -15,15 +15,20 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     eV_e2 = 0
 
     #exc1 - chk RL over
-
+    hEx1_e2 = 0
     if(R[0] > R[1] || R[1] > R[2]):
+        hEx1_e2 += 1
+    if(L[0] < L[1] || L[1] < L[2]):
+        hEx1_e2 -= 1
+
+    if(hEx1_e2 == 1):
+        return 2
+    elif(hEx1_e2 == -1):
+        return 1
         
 
-    if(L[0] < L[1] || L[1] < L[2]):
-        #
-
     #exc2 - chk mid_axis
-    hEx2_e2 = 0;
+    hEx2_e2 = 0
     for ni in range(4):
         Vcntlimit = ni*43 + 42
 
@@ -49,58 +54,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
         if()
 
     #chk LR
-
-
-
-
-
-    """
-    Vcntlimit = 171
-    sV_e2 = 0
-    eV_e2 = 0
-
-    h_e2 = 0
-    for ni in range(7):
-        if(h == 0):
-            if(V[ni] >= Vcntlimit):
-                h_e2 = 1
-                sV_e2 = ni
-        else:
-            if(V[ni] < Vcntlimit):
-                h_e2 = 2
-                eV_e2 = ni
-        
     
-
-    if((sV_e2 + eV_e2) / 2 != 3): #check vertical nums
-        if((sV_e2 + eV_e2) / 2 > 3):
-            evt_2 = 1
-        else:
-            evt_2 = 2
-    else: #check horizental nums
-        if(L[2] == R[2]):
-            if(L[2]  < 320):
-                evt_2 = 1
-            else:
-                evt_2 = 2
-        elif(L[2] != R[2] and (L[2] < 160 or R[2] < 160)):
-            if(L[2] - R[2] < 0):
-                evt_2 = 2
-            else:
-                evt_2 = 1
-        elif(L[1] != R[1] and (L[1] < 150 or R[1] < 150)):
-            if(L[1] - R[1] < 0):
-                evt_2 = 2
-            else:
-                evt_2 = 1
-        elif(L[0] != R[0] and (L[0] < 140 or R[0] < 140)):
-            if(L[0] - R[0] < 0):
-                evt_2 = 2
-            else:
-                evt_2 = 1
-        else:
-            evt_2 = 0
-    """
 
 def main_loop():
     #set variables
