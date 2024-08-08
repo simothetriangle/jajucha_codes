@@ -17,9 +17,9 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
 
     #exc1 - chk RL over
     hEx1_e2 = 0
-    if(R[0] > R[1] || R[1] > R[2]):
+    if R[0] > R[1] or R[1] > R[2]:
         hEx1_e2 += 1
-    if(L[0] > L[1] || L[1] > L[2]):
+    if L[0] > L[1] or L[1] > L[2]:
         hEx1_e2 -= 1
 
     if(hEx1_e2 == 1):
@@ -57,14 +57,14 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
             Vcntlim_Min = nj*43
             Vcntlim_Max = cntlim_Min + 42
 
-            if(V[ni] >= Vcntlim_Min && V[ni] < Vcntlim_Max):
+            if V[ni] >= Vcntlim_Min and V[ni] < Vcntlim_Max:
                 hV_e2 += 1
-            if(V[6-ni] >= Vcntlim_Min && V[6-ni] < Vcntlim_Max):
+            if V[6-ni] >= Vcntlim_Min and V[6-ni] < Vcntlim_Max:
                 hV_e2 -= 1
 
-            if(hEx1_e2 == 1):
+            if(hV_e2 == 1):
                 return 2
-            elif(hEx1_e2 == -1):
+            elif(hV_e2 == -1):
                 return 1
 
     #chk LR
@@ -74,14 +74,14 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
             LRcntlim_Min = nj*80
             LRcntlim_Max = LRcntlim_Min + 79
 
-            if(L[2-ni] >= LRcntlim_Min && L[2-ni] < LRcntlim_Max):
+            if L[2-ni] >= LRcntlim_Min and L[2-ni] < LRcntlim_Max:
                 hLR_e2 += 1
-            if(R[2-ni] >= LRcntlim_Min && R[2-ni] < LRcntlim_Max):
+            if R[2-ni] >= LRcntlim_Min and R[2-ni] < LRcntlim_Max:
                 hLR_e2 -= 1
             
-         if(hEx1_e2 == 1):
+         if(hLR_e2 == 1):
              return 2
-         elif(hEx1_e2 == -1):
+         elif(hLR_e2 == -1):
              return 1
 
 
