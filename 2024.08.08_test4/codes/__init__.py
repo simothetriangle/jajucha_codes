@@ -5,6 +5,79 @@ import cv2
 speedOrig = 58
 speedTurn = speedOrig - 3
 
+def Fevt_2(V, L, R): #evt_2 - line tracing
+    #returns 1 - 30, 30 / 2 - 60, 60
+    #exception1_RoverL or LoverR -> chk V -> chk LR
+    sV_e2 = 0
+    eV_e2 = 0
+
+    #exc1 - chk RL over
+    hEx1_e2 = 0
+    if R[0] > R[1] or R[1] > R[2]:
+        hEx1_e2 += 1
+    if L[0] > L[1] or L[1] > L[2]:
+        hEx1_e2 -= 1
+
+    if(hEx1_e2 == 1):
+        return 2
+    elif(hEx1_e2 == -1):
+        return 1
+        
+
+    #exc2 - chk mid_axis
+    hEx2_e2 = 0
+    for ni in range(4):
+        Vcntlimit = ni*43 + 42
+
+        for ni in range(7):
+            if(hEx2_e2 == 0):
+                if(V[ni] >= Vcntlimit):
+                    hEx2_e2 = 1
+                    sV_e2 = ni
+            elif(hEx2_e2 == 1):
+                if(V[ni] < Vcntlimit):
+                    hEx2_e2 = 2
+                    eV_e2 = ni
+        
+        mid_axis = (sV_e2 + eV_e2) / 2
+        if(mid_axis != 3):
+            if(mid_axis < 3):
+                return 2
+            else:
+                return 1
+
+    #chk V
+    for ni in range(3):
+        for nj in range(4):
+            hV_e2 = 0
+            Vcntlim_Min = nj*43
+            Vcntlim_Max = Vcntlim_Min + 42
+
+            if V[ni] >= Vcntlim_Min and V[ni] < Vcntlim_Max:
+                hV_e2 += 1
+            if V[6-ni] >= Vcntlim_Min and V[6-ni] < Vcntlim_Max:
+                hV_e2 -= 1
+
+            if hV_e2 != 0:
+                return 2 if hV_e2 > 0 else 1
+
+    #chk LR
+    for ni in range(3):
+        for nj in range(4):
+            hLR_e2 = 0
+            LRcntlim_Min = nj*80
+            LRcntlim_Max = LRcntlim_Min + 79
+
+            if L[2-ni] >= LRcntlim_Min and L[2-ni] < LRcntlim_Max:
+                hLR_e2 += 1
+            if R[2-ni] >= LRcntlim_Min and R[2-ni] < LRcntlim_Max:
+                hLR_e2 -= 1
+            
+        if hLR_e2 != 0:
+                return 2 if hLR_e2 > 0 else 1
+         
+    return 0
+
 def main_loop():
     qrgb,qdepth = jajucha.camera_init() #카메라 인스턴스 가져오기
     while True: 
@@ -12,28 +85,14 @@ def main_loop():
         (V,L,R), image = jajucha.gridFront(rgb)
         
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
+        evt_2 = Fevt_2(V, L, R)
 
-        #Example
-        if(L[2] == R[2]):
-            if(L[2]  < 320):
-                jajucha.control(30,30,speedTurn)
-            else:
-                jajucha.control(60,60,speedTurn)
-        elif(L[2] != R[2] and (L[2] < 160 or R[2] < 160)):
-            if(L[2] - R[2] < 0):
-                jajucha.control(60,60,speedTurn)
-            else:
-                jajucha.control(30,30,speedTurn)
-        elif(L[1] != R[1] and (L[1] < 160 or R[1] < 160)):
-            if(L[1] - R[1] < 0):
-                jajucha.control(60,60,speedTurn)
-            else:
-                jajucha.control(30,30,speedTurn)
-        elif(L[0] != R[0] and (L[0] < 160 or R[0] < 160)):
-            if(L[0] - R[0] < 0):
-                jajucha.control(60,60,speedTurn)
-            else:
-                jajucha.control(30,30,speedTurn)
+
+        if (evt_2 != 0):
+            if (evt_2 == 1):
+                jajucha.control(30, 30, speedTurn)
+            elif (evt_2 == 2):
+                jajucha.control(60, 60, speedTurn)
         else:
             jajucha.control(45,45,speedOrig)
 
