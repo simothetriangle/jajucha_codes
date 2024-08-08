@@ -12,7 +12,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     eV_e2 = 0
 
     #exc1 - chk RL over
-    '''hEx1_e2 = 0
+    hEx1_e2 = 0
     if R[0] > R[1] or R[1] > R[2]:
         hEx1_e2 += 1
     if L[0] > L[1] or L[1] > L[2]:
@@ -20,14 +20,15 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
 
     if hEx1_e2 != 0:
         print("exc1")
-        return 1 if hEx1_e2 > 0 else 2'''
+        return 1 if hEx1_e2 > 0 else 2
         
 
     #exc2 - chk mid_axis
     hEx2_e2 = 0
     for ni in range(4):
         Vcntlimit = ni*43 + 42
-
+        
+        hEx2_e2 = 0
         for ni in range(7):
             if(hEx2_e2 == 0):
                 if(V[ni] >= Vcntlimit):
@@ -39,7 +40,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
                     eV_e2 = ni
         
         mid_axis = (sV_e2 + eV_e2) / 2
-        if mid_axis != 3 and hEx2_e2 != 0 and mid_axis != 0:
+        if mid_axis != 3 and hEx2_e2 != 0 and mid_axis >= 1.5:
             print("exc2 " , mid_axis)
             return 1 if mid_axis < 3 else 2
 
