@@ -27,6 +27,12 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
                 if(V[ni] < Vcntlimit):
                     h_e2 = 2
                     eV_e2 = ni
+    
+        if((sV_e2 + eV_e2) / 2 != 3):
+            if((sV_e2 + eV_e2) / 2 < 3):
+                return 2
+            else:
+                return 1
 
 
 
