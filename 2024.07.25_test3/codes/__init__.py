@@ -51,10 +51,13 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
 
     #chk V
     for ni in range(3):
-        if()
+        for nj in range(4):
+            hV_e2 = 0
+
+            if()
 
     #chk LR
-    
+
 
 def main_loop():
     #set variables
