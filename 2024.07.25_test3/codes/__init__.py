@@ -56,7 +56,15 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
             cntlimMin = nj*43
             cntlimMax = cntlimMin + 42
 
-            if()
+            if(V[ni] >= cntlimMin && V[ni] < cntlimMax):
+                hV_e2 += 1
+            if(V[6-ni] >= cntlimMin && V[6-ni] < cntlimMax):
+                hV_e2 -= 1
+
+            if(hEx1_e2 == 1):
+                return 2
+            elif(hEx1_e2 == -1):
+                return 1
 
     #chk LR
 
