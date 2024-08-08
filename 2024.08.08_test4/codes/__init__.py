@@ -12,7 +12,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     eV_e2 = 0
 
     #exc1 - chk RL over
-    hEx1_e2 = 0
+    '''hEx1_e2 = 0
     if R[0] > R[1] or R[1] > R[2]:
         hEx1_e2 += 1
     if L[0] > L[1] or L[1] > L[2]:
@@ -20,7 +20,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
 
     if hEx1_e2 != 0:
         print("exc1")
-        return 1 if hEx1_e2 > 0 else 2
+        return 1 if hEx1_e2 > 0 else 2'''
         
 
     #exc2 - chk mid_axis
@@ -40,11 +40,11 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
         
         mid_axis = (sV_e2 + eV_e2) / 2
         if mid_axis != 3 and hEx2_e2 != 0 and mid_axis != 0:
-            print("exc2")
+            print("exc2 " , mid_axis)
             return 1 if mid_axis < 3 else 2
 
     #chk V
-    for ni in range(4):
+    '''for ni in range(4):
         if ni > 1:
             hcntV_e2 = 2
         else: 
@@ -78,7 +78,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
         if hLR_e2 != 0:
             print("LR")
             return 2 if hLR_e2 > 0 else 1
-         
+         '''
     return 0
 
 def main_loop():
@@ -93,9 +93,9 @@ def main_loop():
 
         if (evt_2 != 0):
             if (evt_2 == 1):
-                jajucha.control(30, 30, speedTurn)
+                jajucha.control(35, 35, speedTurn)
             elif (evt_2 == 2):
-                jajucha.control(60, 60, speedTurn)
+                jajucha.control(55, 55, speedTurn)
         else:
             jajucha.control(45,45,speedOrig)
 
