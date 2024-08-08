@@ -53,6 +53,8 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     for ni in range(3):
         for nj in range(4):
             hV_e2 = 0
+            cntlimMin = nj*43
+            cntlimMax = cntlimMin + 42
 
             if()
 
