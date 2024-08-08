@@ -15,25 +15,31 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     eV_e2 = 0
 
     #exc1 - chk RL over
-    
 
-    #exc2 - chk 
-    h_e2 = 0;
+    if(R[0] > R[1] || R[1] > R[2]):
+        
+
+    if(L[0] < L[1] || L[1] < L[2]):
+        #
+
+    #exc2 - chk mid_axis
+    hEx2_e2 = 0;
     for ni in range(4):
         Vcntlimit = ni*43 + 42
 
         for ni in range(7):
-            if(h == 0):
+            if(hEx2_e2 == 0):
                 if(V[ni] >= Vcntlimit):
-                    h_e2 = 1
+                    hEx2_e2 = 1
                     sV_e2 = ni
-            else:
+            elif(hEx2_e2 == 1):
                 if(V[ni] < Vcntlimit):
-                    h_e2 = 2
+                    hEx2_e2 = 2
                     eV_e2 = ni
-    
-        if((sV_e2 + eV_e2) / 2 != 3):
-            if((sV_e2 + eV_e2) / 2 < 3):
+        
+        mid_axis = (sV_e2 + eV_e2) / 2
+        if(mid_axis != 3):
+            if(mid_axis / 2 < 3):
                 return 2
             else:
                 return 1
