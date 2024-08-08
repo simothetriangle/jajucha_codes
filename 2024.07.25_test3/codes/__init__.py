@@ -55,7 +55,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
         for nj in range(4):
             hV_e2 = 0
             Vcntlim_Min = nj*43
-            Vcntlim_Max = cntlim_Min + 42
+            Vcntlim_Max = Vcntlim_Min + 42
 
             if V[ni] >= Vcntlim_Min and V[ni] < Vcntlim_Max:
                 hV_e2 += 1
@@ -85,8 +85,8 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
 
 def main_loop():
     #set variables
-    speedOrig = 55
-    speedTurn = 52
+    speedOrig = 60
+    speedTurn = 5
     evt_1 = 0
     evt_2 = 0
     
@@ -101,7 +101,7 @@ def main_loop():
         distance = jajucha.distance_get(depth)
         
         #Events - event handler
-        print(distance)
+        #print(distance)
         evt_1 = Fevt_1(distance)
         
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
