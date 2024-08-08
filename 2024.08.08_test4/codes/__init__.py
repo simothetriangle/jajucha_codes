@@ -2,7 +2,7 @@
 from control import Jajucha
 import cv2
 
-speedOrig = 58
+speedOrig = 60
 speedTurn = speedOrig - 3
 
 def Fevt_2(V, L, R): #evt_2 - line tracing
@@ -18,10 +18,9 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     if L[0] > L[1] or L[1] > L[2]:
         hEx1_e2 -= 1
 
-    if(hEx1_e2 == 1):
-        return 2
-    elif(hEx1_e2 == -1):
-        return 1
+    if hEx1_e2 != 0:
+        
+        return 2 if hEx1_e2 > 0 else 1
         
 
     #exc2 - chk mid_axis
@@ -84,7 +83,7 @@ def main_loop():
         rgb = jajucha.image_get(qrgb) #RGB 이미지 가져오기
         (V,L,R), image = jajucha.gridFront(rgb)
         
-        jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
+        jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]')
         evt_2 = Fevt_2(V, L, R)
 
 
