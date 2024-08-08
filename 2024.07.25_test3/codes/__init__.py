@@ -84,6 +84,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
          elif(hEx1_e2 == -1):
              return 1
 
+
 def main_loop():
     #set variables
     evt_1 = 0
