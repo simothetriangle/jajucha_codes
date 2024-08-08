@@ -2,7 +2,7 @@
 from control import Jajucha
 import cv2
 
-speedOrig = 60
+speedOrig = 
 speedTurn = speedOrig - 3
 
 def Fevt_2(V, L, R): #evt_2 - line tracing
@@ -19,8 +19,8 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
         hEx1_e2 -= 1
 
     if hEx1_e2 != 0:
-        
-        return 2 if hEx1_e2 > 0 else 1
+        print("exc1")
+        return 1 if hEx1_e2 > 0 else 2
         
 
     #exc2 - chk mid_axis
@@ -40,10 +40,8 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
         
         mid_axis = (sV_e2 + eV_e2) / 2
         if(mid_axis != 3):
-            if(mid_axis < 3):
-                return 2
-            else:
-                return 1
+            print("exc2")
+            return 2 if mid_axis < 3 else 1
 
     #chk V
     for ni in range(3):
@@ -58,6 +56,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
                 hV_e2 -= 1
 
             if hV_e2 != 0:
+                print("V")
                 return 2 if hV_e2 > 0 else 1
 
     #chk LR
@@ -73,7 +72,8 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
                 hLR_e2 -= 1
             
         if hLR_e2 != 0:
-                return 2 if hLR_e2 > 0 else 1
+            print("LR")
+            return 2 if hLR_e2 > 0 else 1
          
     return 0
 
@@ -85,7 +85,7 @@ def main_loop():
         
         jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]')
         evt_2 = Fevt_2(V, L, R)
-
+        
 
         if (evt_2 != 0):
             if (evt_2 == 1):
