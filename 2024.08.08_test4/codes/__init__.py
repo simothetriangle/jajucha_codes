@@ -45,9 +45,12 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
 
     #chk V
     for ni in range(4):
-        for nj in range(3):
+        hcntV_e2 = ni + 1
+        if hcntV_e2 > 3:
+            hcntV_e2 -= 1 
+        for nj in range(hcntV_e2):
             hV_e2 = 0
-            Vcntlim_Min = ni*43
+            Vcntlim_Min = (3-ni)*43
             Vcntlim_Max = Vcntlim_Min + 42
 
             if V[ni] >= Vcntlim_Min and V[ni] < Vcntlim_Max:
