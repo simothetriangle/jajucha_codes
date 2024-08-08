@@ -14,6 +14,10 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     sV_e2 = 0
     eV_e2 = 0
 
+    #exc1 - chk RL over
+    
+
+    #exc2 - chk 
     h_e2 = 0;
     for ni in range(4):
         Vcntlimit = ni*43 + 42
@@ -34,6 +38,13 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
             else:
                 return 1
 
+    #chk V
+    for ni in range(3):
+        if()
+
+    #chk LR
+
+
 
 
 
@@ -53,12 +64,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
                 h_e2 = 2
                 eV_e2 = ni
         
-    #
-    if(R[0] > R[1] || R[1] > R[2]):
-        #
-
-    if(L[0] < L[1] || L[1] < L[2]):
-        #
+    
 
     if((sV_e2 + eV_e2) / 2 != 3): #check vertical nums
         if((sV_e2 + eV_e2) / 2 > 3):
