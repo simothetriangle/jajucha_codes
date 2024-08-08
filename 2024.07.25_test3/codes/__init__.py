@@ -3,7 +3,7 @@ from control import Jajucha
 import cv2
 
 
-def Fevt_1(distance): #evt_1 - scan obstacles
+def Fevt_1(distance): #evt_1 - scan obstacles <-- 수정 요함(장해물 확인시 대처 방안)
     if(distance > 60):
             return 1
         else:
@@ -99,7 +99,7 @@ def main_loop():
         depth = jajucha.image_get(qdepth)
         distance = jajucha.distance_get(depth)
         
-        #Events
+        #Events - event handler
         print(distance)
         evt_1 = Fevt_1(distance)
         
