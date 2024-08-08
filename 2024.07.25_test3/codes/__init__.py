@@ -104,7 +104,7 @@ def main_loop():
         print(distance)
         evt_1 = Fevt_1(distance)
         
-        jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]')
+        jajucha.image_send('V[0]'+" "+'V[1]'+" "+'V[2]'+" "+'V[3]'+" "+'V[4]'+" "+'V[5]'+" "+'V[6]');
         evt_2 = Fevt_2(V, L, R)
         
 
