@@ -86,7 +86,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
 def main_loop():
     #set variables
     speedOrig = 60
-    speedTurn = 5
+    speedTurn = 55
     evt_1 = 0
     evt_2 = 0
     
@@ -122,7 +122,7 @@ def main_loop():
             jajucha.control(45,45,speedOrig)
 
 
-        jajucha.image_send(depth) #이미지를 PC로 전송
+        #jajucha.image_send(depth) #이미지를 PC로 전송
       
 if __name__ == "__main__":
     jajucha = Jajucha() #자주차 객체선언
