@@ -2,8 +2,8 @@
 from control import Jajucha
 import cv2
 
-speedOrig = 
-speedTurn = speedOrig - 3
+speedOrig = 52
+speedTurn = 51
 
 def Fevt_2(V, L, R): #evt_2 - line tracing
     #returns 1 - 30, 30 / 2 - 60, 60
