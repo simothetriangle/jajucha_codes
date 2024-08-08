@@ -5,9 +5,9 @@ import cv2
 
 def Fevt_1(distance): #evt_1 - scan obstacles <-- 수정 요함(장해물 확인시 대처 방안)
     if(distance > 60):
-            return 1
-        else:
-            return 0
+        return 1
+    else:
+        return 0
 
 def Fevt_2(V, L, R): #evt_2 - line tracing
     #returns 1 - 30, 30 / 2 - 60, 60
