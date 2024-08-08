@@ -19,7 +19,7 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
     hEx1_e2 = 0
     if(R[0] > R[1] || R[1] > R[2]):
         hEx1_e2 += 1
-    if(L[0] < L[1] || L[1] < L[2]):
+    if(L[0] > L[1] || L[1] > L[2]):
         hEx1_e2 -= 1
 
     if(hEx1_e2 == 1):
