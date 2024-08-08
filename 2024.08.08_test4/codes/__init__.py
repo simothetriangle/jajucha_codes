@@ -44,11 +44,11 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
             return 1 if mid_axis < 3 else 2
 
     #chk V
-    for ni in range(3):
+    for ni in range(4):
         for nj in range(3):
             hV_e2 = 0
-            Vcntlim_Min = nj*43 + 43
-            Vcntlim_Max = Vcntlim_Min + 85
+            Vcntlim_Min = ni*43
+            Vcntlim_Max = Vcntlim_Min + 42
 
             if V[ni] >= Vcntlim_Min and V[ni] < Vcntlim_Max:
                 hV_e2 += 1
