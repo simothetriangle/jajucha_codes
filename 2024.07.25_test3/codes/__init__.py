@@ -62,10 +62,8 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
             if V[6-ni] >= Vcntlim_Min and V[6-ni] < Vcntlim_Max:
                 hV_e2 -= 1
 
-            if(hV_e2 == 1):
-                return 2
-            elif(hV_e2 == -1):
-                return 1
+            if hV_e2 != 0:
+                return 2 if hV_e2 > 0 else 1
 
     #chk LR
     for ni in range(3):
@@ -79,14 +77,16 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
             if R[2-ni] >= LRcntlim_Min and R[2-ni] < LRcntlim_Max:
                 hLR_e2 -= 1
             
-         if(hLR_e2 == 1):
-             return 2
-         elif(hLR_e2 == -1):
-             return 1
+        if hLR_e2 != 0:
+                return 2 if hLR_e2 > 0 else 1
+         
+    return 0
 
 
 def main_loop():
     #set variables
+    speedOrig = 55
+    speedTurn = 52
     evt_1 = 0
     evt_2 = 0
     
