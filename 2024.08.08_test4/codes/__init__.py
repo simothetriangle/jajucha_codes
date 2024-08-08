@@ -2,8 +2,8 @@
 from control import Jajucha
 import cv2
 
-speedOrig = 58
-speedTurn = 56
+speedOrig = 52
+speedTurn = 52
 
 def Fevt_2(V, L, R): #evt_2 - line tracing
     #returns 1 - 30, 30 / 2 - 60, 60
@@ -45,9 +45,10 @@ def Fevt_2(V, L, R): #evt_2 - line tracing
 
     #chk V
     for ni in range(4):
-        hcntV_e2 = ni + 1
-        if hcntV_e2 > 3:
-            hcntV_e2 -= 1 
+        if ni > 1:
+            hcntV_e2 = 2
+        else: 
+            hcntV_e2 = 3 
         for nj in range(hcntV_e2):
             hV_e2 = 0
             Vcntlim_Min = (3-ni)*43
