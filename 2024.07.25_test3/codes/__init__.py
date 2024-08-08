@@ -11,22 +11,26 @@ def Fevt_1(distance): #evt_1 - scan obstacles
 
 def Fevt_2(V, L, R): #evt_2 - line tracing
     #exception1_RoverL or LoverR -> chk V -> chk LR
+    sV_e2 = 0
+    eV_e2 = 0
 
     h_e2 = 0;
     for ni in range(4):
-        if(ni*43 + 42):
-            for ni in range(7):
-                if(h == 0):
-                    if(V[ni] >= Vcntlimit):
-                        h_e2 = 1
-                        sV_e2 = ni
-                else:
-                    if(V[ni] < Vcntlimit):
-                        h_e2 = 2
-                        eV_e2 = ni
+        Vcntlimit = ni*43 + 42
+
+        for ni in range(7):
+            if(h == 0):
+                if(V[ni] >= Vcntlimit):
+                    h_e2 = 1
+                    sV_e2 = ni
+            else:
+                if(V[ni] < Vcntlimit):
+                    h_e2 = 2
+                    eV_e2 = ni
 
 
-    #message
+
+
     """
     Vcntlimit = 171
     sV_e2 = 0
