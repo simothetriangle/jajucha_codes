@@ -98,8 +98,8 @@ def main_loop():
             elif (evt_2 == 2):
                 jajucha.control(55, 55, speedTurn)
         else:
-            jajucha.control(45,45,speedOrig)
-
+            jajucha.control(45,45,speedOrig) 
+            
         jajucha.image_send(rgb) #이미지를 PC로 전송
 if __name__ == "__main__":
     jajucha = Jajucha() #자주차 객체선언
