@@ -94,9 +94,9 @@ def main_loop():
 
         if (evt_2 != 0):
             if (evt_2 == 1):
-                jajucha.control(35, 35, speedTurn)
+                jajucha.control(30, 30, speedTurn)
             elif (evt_2 == 2):
-                jajucha.control(55, 55, speedTurn)
+                jajucha.control(60, 60, speedTurn)
         else:
             jajucha.control(45,45,speedOrig) 
             
