@@ -101,6 +101,7 @@ def main_loop():
             jajucha.control(45,45,speedOrig) 
             
         jajucha.image_send(rgb) #이미지를 PC로 전송
+        
 if __name__ == "__main__":
     jajucha = Jajucha() #자주차 객체선언
     jajucha.control(45,45,50) #정지
