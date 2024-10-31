@@ -20,6 +20,14 @@ model.eval()
 steer = 0
 speed = 0
 
+def arr_sum (arr[]):
+    cnt = 0
+    sum = 0
+    while cnt < len(arr)
+        sum += arr[cnt]
+        cnt++
+    return sum
+
 def evt1 ():
     return 0
 
@@ -27,9 +35,22 @@ while True:
     image = jajucha2.camera.get_image('center')
     jajucha2.camera.show_image(image)
 
-    #그리드 기반 주행 코드
+    #그리드 기반 주행 코드 - line tracing
     (V,L,R) ,grid = jajucha2.camera.gridFront(image)
 
+    sumL = arr_sum(L)
+    sumR = arr_sum(R)
+    
+    if(sumL < sumR && sumR - sumL > 20): 
+        steer = -10
+        speed = 5
+    elif(sumL > sumR && sumL - sumR > 20):
+        steer = 10
+        speed = 5
+    else:
+        steer = 0
+        speed = 5
+    
     if(V[5] < 100):
         steer = -10
         speed = 5
