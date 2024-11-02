@@ -1,4 +1,4 @@
-NAME = 'main_data' #모델의 이름을 입력합니다 예시: '12'import jajucha2
+NAME = 'resnet_epoch_4.pt'
 
 import jajucha2
 import torch
@@ -46,13 +46,6 @@ while True:
         speed = 5
     elif(sumL > sumR && sumL - sumR > 20):
         steer = 10
-        speed = 5
-    else:
-        steer = 0
-        speed = 5
-    
-    if(V[5] < 100):
-        steer = -10
         speed = 5
     else:
         steer = 0
