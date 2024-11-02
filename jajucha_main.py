@@ -20,13 +20,17 @@ model.eval()
 steer = 0
 speed = 0
 
+sumL, sumR = 0
+
 def arr_sum (arr[]):
     cnt = 0
-    sum = 0
+    sumA = 0
     while cnt < len(arr)
-        sum += arr[cnt]
+        sumA += arr[cnt]
         cnt++
-    return sum
+    return sumA
+
+chk_e1, ehk_e2, chk_e3 = 0
 
 def evt1 ():
     return 0
@@ -71,11 +75,17 @@ while True:
     # 인공지능 기반 신호등 감지
     image = Img.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)) 
     image = transform(image)  
-    image =image.unsqueeze(0).to(device)
+    image = image.unsqueeze(0).to(device)
     output = (model(image))
     max_index = torch.argmax(output)
     if(max_index == 1):
         speed = 0
+
+    #이벤트 감지
+    
+    if():
+
+    print(f"\r depth result {speed},{steer}", end="")
 
     print(f"\r final result {speed},{steer}", end="")
     
