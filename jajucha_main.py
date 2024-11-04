@@ -6,6 +6,7 @@ import numpy as np
 import torchvision.transforms as transforms
 from PIL import Image as Img
 import cv2
+import time
 
 transform = transforms.Compose([
         transforms.Resize((224, 224)),

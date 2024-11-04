@@ -2,7 +2,7 @@
 from control import Jajucha
 import cv2
 
-def main_loop():
+def main_loop(): 
     qrgb,qdepth = jajucha.camera_init() #카메라 인스턴스 가져오기
     while True: 
         rgb = jajucha.image_get(qrgb) #RGB 이미지 가져오기
