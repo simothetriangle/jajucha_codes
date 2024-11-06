@@ -47,8 +47,8 @@ def evt1 ():
 #------
 while True:
     #그리드 기반 자율주행 0: 직진 1: 오른쪽 2: 왼쪽
-    image = jajucha2.camera.get_image()
-    (V, L, R), grid = jajucha2.camera.gridFront(image)
+    imageG = jajucha2.camera.get_image()
+    (V, L, R), grid = jajucha2.camera.gridFront(imageG)
     jajucha2.camera.show_image(grid)
 
     Lsum = sumA(L) - L[0]
@@ -93,9 +93,9 @@ while True:
     lastR = R[1]
     lastL = L[1]
         
-    print(f"\r grid result {speed}, {steer}", end="")
+    print(f"\r grid result {speed_f}, {steer_f}", end="")
 
-    #깊이기반 거리감지 주행
+    #깊이 기반 자율주행
     depth = jajucha2.camera.get_depth() 
     jajucha2.camera.show_image(depth, 'depth')  
     height, width = depth.shape[:2]
@@ -119,30 +119,47 @@ while True:
     rig_region = depth[start_ry:start_ry + region_size, start_rx:start_rx + region_size]
     
     cen_value = np.mean(cen_region)
-    if(mean_value > 100):
-        speed = 0
+    lef_value = np.mean(lef_region)
+    rig_value = np.mean(rig_region)
 
-    print(f"\r depth result {speed}, {steer}", end="")
+    if cen_value > 100:
+        speed_f = -3
+        steer_f = 0
+    elif cen_value > 90:
+        if rig_value < 80 and R[1] > 280 and R[1] <= R[2]:
+            speed_f = speed_cu
+            steer_f = steer_or
+        elif lef_value < 80 and L[1] > 280 and L[1] <= L[2]:
+            speed_f = speed_cu
+            steer_f = -steer_or
+        else:
+            speed_f = -3
+            steer_f = 0
 
-    # 인공지능 기반 신호등 감지
+    print(f"\r depth result {speed_f}, {steer_f}", end="")
+
+    # 인공지능 기반 자율주행
     image = Img.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)) 
     image = transform(image)  
     image = image.unsqueeze(0).to(device)
+    
     output = (model(image))
     max_index = torch.argmax(output)
+    
     if(max_index == 1):
-        speed = 0
+        speed_f = 0
 
-    print(f"\r AI result {speed}, {steer}", end="")
+    print(f"\r AI result {speed_f}, {steer_f}", end="")
         
-    #이벤트 감지
+    #이벤트 감지기반 예외 탐지
     
-    if():
+    if(evt1() == 1):
+        a = evt1()
 
-    print(f"\r depth result {speed},{steer}", end="")
+    print(f"\r event result {speed_f}, {steer_f}", end="")
 
-    print(f"\r final result {speed},{steer}", end="")
+    #종합 결과
+    print(f"\r final result {speed_f}, {steer_f}", end="")
     
-    jajucha2.control.set_motor(steer,steer,speed)
+    jajucha2.control.set_motor(steer_f, steer_f , speed_f)
 
-    print(f"\r total result {speed}, {steer}")
