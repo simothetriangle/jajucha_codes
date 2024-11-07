@@ -42,6 +42,22 @@ def sumA(arr):
         cnt += 1
     return Asum
 
+def find_arr_range(arr, max_ran):
+    arr_s = -1
+    arr_f = -1
+    h = 0
+    
+    cnt = 0
+    while cnt < len(arr):
+        if h == 0:
+            if arr[cnt] < max_ran:
+                arr_s = cnt
+        elif h == 1:
+            if arr[cnt] >= max_ran:
+                arr_f = cnt
+        cnt += 1
+    return arr_s, arr_f
+
 def evt1 ():
     return 0
 #------
@@ -93,7 +109,7 @@ while True:
     lastR = R[1]
     lastL = L[1]
         
-    print(f"\r grid result {speed_f}, {steer_f}", end="")
+    print(f"\r grid result {speed_f}, {steer_f}")
 
     #깊이 기반 자율주행
     depth = jajucha2.camera.get_depth() 
@@ -122,10 +138,10 @@ while True:
     lef_value = np.mean(lef_region)
     rig_value = np.mean(rig_region)
 
-    if cen_value > 100:
+    if cen_value > 191:
         speed_f = -3
         steer_f = 0
-    elif cen_value > 90:
+    elif cen_value > 127:
         if rig_value < 80 and R[1] > 280 and R[1] <= R[2]:
             speed_f = speed_cu
             steer_f = steer_or
@@ -136,7 +152,7 @@ while True:
             speed_f = -3
             steer_f = 0
 
-    print(f"\r depth result {speed_f}, {steer_f}", end="")
+    print(f"\r depth result {speed_f}, {steer_f}")
 
     # 인공지능 기반 자율주행
     image = Img.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)) 
@@ -149,17 +165,15 @@ while True:
     if(max_index == 1):
         speed_f = 0
 
-    print(f"\r AI result {speed_f}, {steer_f}", end="")
+    print(f"\r AI result {speed_f}, {steer_f}")
         
     #이벤트 감지기반 예외 탐지
-    
     if(evt1() == 1):
         a = evt1()
 
-    print(f"\r event result {speed_f}, {steer_f}", end="")
+    print(f"\r event result {speed_f}, {steer_f}")
 
     #종합 결과
-    print(f"\r final result {speed_f}, {steer_f}", end="")
+    print(f"\r final result {speed_f}, {steer_f}\n")
     
     jajucha2.control.set_motor(steer_f, steer_f , speed_f)
-
