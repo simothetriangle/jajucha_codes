@@ -40,6 +40,7 @@ def sumA(arr):
     while cnt < len(arr):
         Asum += arr[cnt]
         cnt += 1
+    
     return Asum
 
 def find_arr_range(arr, max_ran):
@@ -56,6 +57,7 @@ def find_arr_range(arr, max_ran):
             if arr[cnt] >= max_ran:
                 arr_f = cnt
         cnt += 1
+    
     return arr_s, arr_f
 
 def evt1 ():
@@ -63,13 +65,14 @@ def evt1 ():
 #------
 while True:
     #그리드 기반 자율주행 0: 직진 1: 오른쪽 2: 왼쪽
-    imageG = jajucha2.camera.get_image()
-    (V, L, R), grid = jajucha2.camera.gridFront(imageG)
+    image = jajucha2.camera.get_image()
+    (V, L, R), grid = jajucha2.camera.gridFront(image)
     jajucha2.camera.show_image(grid)
 
     Lsum = sumA(L) - L[0]
     Rsum = sumA(R) - R[0]
-
+    lV, hV = fin_arr_range(V ,170)
+    
     if chk_lt == 0:
         if Lsum < Rsum and Rsum - Lsum > 70:
             steer_f = steer_or
@@ -162,7 +165,7 @@ while True:
     output = (model(image))
     max_index = torch.argmax(output)
     
-    if(max_index == 1):
+    if max_index == 'r':
         speed_f = 0
 
     print(f"\r AI result {speed_f}, {steer_f}")
