@@ -146,11 +146,15 @@ while True:
         steer_f = 0
     elif cen_value > 127:
         if rig_value < 80 and R[1] > 280 and R[1] <= R[2]:
-            speed_f = speed_cu
-            steer_f = steer_or
+            speed_f = 0
+            steer_f = 0
+            jajucha2.control.set_motor(0, 0, -2)
+            jajucha2.control.set_motor(steer_or, steer_or, speed_cu)
         elif lef_value < 80 and L[1] > 280 and L[1] <= L[2]:
-            speed_f = speed_cu
-            steer_f = -steer_or
+            speed_f = 0
+            steer_f = 0
+            jajucha2.control.set_motor(0, 0, -2)
+            jajucha2.control.set_motor(steer_or, steer_or, speed_cu)
         else:
             speed_f = -3
             steer_f = 0
@@ -167,6 +171,11 @@ while True:
     
     if max_index == 'r':
         speed_f = 0
+        steer_f = 0
+    elif max_index == 'p':
+        speed_f = 0
+        steer_f = 0
+        time.sleep(0.5)
 
     print(f"\r AI result {speed_f}, {steer_f}")
         
