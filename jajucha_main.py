@@ -60,6 +60,16 @@ def find_arr_range(arr, max_ran):
     
     return arr_s, arr_f
 
+def chk_lines(arr):
+    chk_range = 170
+    cnt = 0
+    s_s = -1
+    s_f = -1
+    b_s = -1
+    b_f = -1
+    while cnt < len(arr):
+        if V[cnt] 
+
 def evt1 ():
     return 0
 #------
