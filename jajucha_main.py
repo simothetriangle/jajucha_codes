@@ -62,13 +62,32 @@ def find_arr_range(arr, max_ran):
 
 def chk_lines(arr):
     chk_range = 170
+
+    s_s, s_f, b_S, b_f = -1, -1, -1, -1
     cnt = 0
-    s_s = -1
-    s_f = -1
-    b_s = -1
-    b_f = -1
+
     while cnt < len(arr):
-        if V[cnt] 
+        if arr[cnt] < chk_range and s_s < 0:
+            s_s = cnt
+        elif arr[cnt] >= chk_range and s_s >= 0 and s_f < 0:
+            s_f = cnt - 1
+
+        if arr[len(arr) - cnt - 1] < chk_range and b_s < 0:
+            b_s = len(arr) - cnt - 1
+        elif arr[len(arr) - cnt - 1] >= chk_range and b_s >= 0 and b_f < 0:
+            b_f = len(arr) - cnt
+
+    if s_s >= 0 and s_f < 0:
+        s_f = len(arr) - 1
+    if b_S >= 0 and b_f < 0L
+        b_f = 0
+    
+    if s_s < 0:
+        #인식 x
+        speed_f = speed_or
+        steer_f = 0
+    elif s_s == b_f:
+        #인식 o 범위 1개
 
 def evt1 ():
     return 0
